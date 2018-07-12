@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="javascripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#user').on("blur", function () {
+                var n = $('#user').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/login",
+                    user: n,
+                    password: "",
+                    success: function (data) {
+                        if (data.state() !== "NotExists") {
+                            $('#show1').text("用户名已被占用").validate(false);
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+    <style>
+        .login_box {
+            width: 450px;
+        }
+    </style>
+</head>
+<body>
+<div class="login_box">
+    <form action="/register" method="post">
+        <p><span>用户名: </span><input class="input_field" id="user" type="text" name="user" required placeholder="请输入用户名"><span
+                id="show1"></span></p>
+        <p><span>密码: </span><input class="input_field" id="password" type="password" name="password" required
+                                   placeholder="请输入密码"><span id="show2"></span></p>
+        <p><input type="submit" value="提交" class="btn"></p>
+    </form>
+</div>
+</body>
+</html>

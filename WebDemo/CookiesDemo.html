@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookies Demo</title>
+</head>
+<body>
+<!--<span id="showCookie" style="font-size: large"></span>-->
+<span id="showCount" style="font-size: large"></span>
+<script>
+    var cookies = document.cookie.split(";");
+    var idx = -1;
+    for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf("visitCount") !== -1) {
+            idx = i;
+        }
+    }
+    var date = new Date();
+    date.setDate(date.getDate()+1);
+    if (idx !== -1) {
+        var time = cookies[idx].split("=")[1];
+        var timeInt = parseInt(time);
+        document.cookie = "visitCount=" + (timeInt + 1)+";expires="+date.toString();
+        document.getElementById("showCount").innerText = "访问次数：" + (timeInt + 1);
+        // document.getElementById("showCookie").innerText = date.toString();
+    } else {
+        document.cookie = "visitCount=1;expires="+date.toString();
+        document.getElementById("showCount").innerText = "访问次数：1";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: beige;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.login_box {
+    border: 1px solid gray;
+    font-size: 20px;
+    text-align: center;
+    background: beige;
+    width: 350px;
+    height: 300px;
+}
+
+.login_box p{
+    width: 350px;
+    height: 40px;
+}
+
+.login_box span{
+    display: inline-block;
+    text-align: right;
+    width: 75px;
+}
+
+.btn{
+    width: 100px;
+    padding: 2px;
+    margin: 2px;
+    font-size: 15px;
+}
+
+.input_field {
+    width: 200px;
+    padding: 2px;
+    margin: 2px;
+    font-size: 18px;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Test</title>
+    <style>
+        #test{
+            border: 3px solid red;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        var i = 0;
+        var id = setInterval(function () {
+            document.getElementById("test").style.borderRadius=i+"px";
+            document.getElementById("test").innerText = i++;
+        },200);
+        setTimeout(function () {
+            clearInterval(id)
+        }, 8000)
+    </script>
+</head>
+<body>
+<svg width="400" height="400">
+    <defs>
+        <path id="path1" d="M115 258 A95,95 180 1,1 249,258"></path>
+        <path id="path2" d="M80,280 L250,250"></path>
+    </defs>
+    <rect height="400" width="400" stroke="black" stroke-width="1" fill="none"></rect>
+    <!--<circle cx="45" cy="90" r="2" stroke="red" stroke-width="1" fill="none"></circle>-->
+    <!--<circle cx="113" cy="217" r="10" stroke="black" stroke-width="1" fill="black"></circle>-->
+    <ellipse fill="#ff0000" stroke="#red" stroke-width="1.5" cx="180" cy="180" rx="150" ry="150"></ellipse>
+    <path d="M36,134 Q100 74 116 90 Q100 74 180 30 Q260 74 244 90 Q260 74 324 134 Q304 226 288 210
+    Q304 226 268 302 Q180 310 180 294 Q180 310 92 302 Q56 226 72 210 Q 56 226 36 134"
+          fill="#fff" stroke="#fff"></path>
+    <text font-style="normal" stroke="#f00" font-family="Trebuchet MS, Arial, sans-serif" font-size="21" x="22" y="50"
+          fill="red">
+        <textPath xlink:href="#path1">GUANGDONG UNIVERSITY OF TECHNOLOGY</textPath>
+    </text>
+    <path id="svg_7" d="m224.5,233.5" opacity="0.5" fill-opacity="null" stroke-opacity="null" stroke-width="1.5"
+          stroke="#000" fill="#fff"></path>
+    <path d="m115,229.27l52,-0.27c9,-3.73 9,16.27 1,16.27c-8,0 -55,-1 -50,0.73c-4,-0.73 14,-8.73 -3,-16.73z" transform="rotate(-0.279721)" stroke-width="1.5" fill="#ff0000" id="svg_9"></path>
+    <path d="m185,227.27002l52,-0.27002c9,-3.72998 9,16.27002 1,16.27002c-8,0 -55,-1 -50,0.72998c-4,-0.72998 14,-8.72998 -3,-16.72998z" transform="rotate(-180 214.44 235.268)" stroke-width="1.5" fill="#ff0000" id="svg_10"></path>
+    <path d="m149,142.27l-1,17.73" stroke-width="null" stroke-opacity="null" stroke="#fff" fill="#ff0000" opacity="0.5" id="svg_13"></path>
+    <path d="m150,161.27" stroke-width="null" stroke-opacity="null" stroke="#fff" fill="#ff0000" opacity="0.5" id="svg_15"></path>
+    <path d="m144,169.27l-1,-20.27c0,0.27 -33,-5.73 -32,29.27c1,35 22,37 42,36c20,-1 -1,8 -1,7.73c0,0.27 16,-0.73 16,-1c0,0.27 0,-86.73 0,-87c0,0.27 -11,-32.73 -33,-16.73c-22,16 4,-16 3,15c-1,31 -2,-20 14,8c16,28 -24,70 -2,52c22,-18 -47,12 -6,-23z" transform="rotate(1 137.605 167.484)" stroke-width="null" stroke-opacity="null" stroke="#fff" fill-opacity="null" fill="#ff0000" id="svg_17"></path>
+    <path d="m211,136.27l1,-23.27c0,0.27 -34,-1.73 -25,29.27c9,31 2,72 2,71.73c0,0.27 29,0.27 29,0c0,0.27 -1,-6.73 -1,-7c0,0.27 28,2.27 23,-33.73c-5,-36 -18,-28 -29,-26c-11,2 -1,20 -1,19.73c0,0.27 24,-1.73 16,13.27c-8,15 7,18 -16,17c-23,-1 5,-17 -9,-49c-14,-32.00001 -3,44 10,-12z" stroke-width="null" stroke-opacity="null" stroke="#fff" fill-opacity="null" fill="#ff0000" id="svg_22"></path>
+    <rect height="12" width="144" y="252.27" x="108" stroke-width="null" stroke-opacity="null" stroke="#fff" fill-opacity="null" fill="#ff0000" id="svg_23"></rect>
+    <text font-size="25px" font-family="隶书,serif" x="110" y="285" fill="red">廣東工業大學</text>
+</svg>
+<div id="test"></div>
+</body>
+</html>

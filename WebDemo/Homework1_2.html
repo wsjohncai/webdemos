@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件操作</title>
+    <script type="text/javascript">
+        if (typeof FileReader === "undefined") {
+            alert("浏览器不支持该页面")
+        }
+
+        function showFileInfo() {
+            document.getElementById("showArea").innerHTML = "";
+            var files = document.getElementById("fileSel").files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                // document.getElementById("showArea").innerHTML += typeof file;
+                var reader = new FileReader();
+                var fileName = file.name;
+                if (fileName.match(".+?\\.(jpg|png|jpeg|gif|bmp)")) {
+                    reader.readAsDataURL(file);
+                    reader.onload = function (ev) {
+                        document.getElementById("showArea").innerHTML += "<p>打开： " + fileName + ", 图片文件</p>";
+                        var urlData = this.result;
+                        document.getElementById("showArea").innerHTML += "<img src=" + urlData + " alt=" +
+                            fileName + " width='500px'" + "/>"
+                    }
+                } else if (fileName.match(".+?\\.(txt|\\w+ml|java|c\\w+|js)")) {
+                    reader.readAsText(file, "gb2312");
+                    reader.onload = function (ev) {
+                        document.getElementById("showArea").innerHTML += "<p>打开： " + fileName + ", 文本文件 </p>";
+                        var data = this.result;
+                        document.getElementById("showArea").innerHTML += "<p>" + data + "</p>";
+                    }
+                } else {
+                    document.getElementById("showArea").innerHTML += "<p>文件: " + fileName + "无法打开，不支持类型</p>";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="file" name="selectFile" id="fileSel" multiple/>
+<input type="button" name="show" onclick="showFileInfo()" value="显示文件"/>
+<div id="showArea"></div>
+</body>
+</html>

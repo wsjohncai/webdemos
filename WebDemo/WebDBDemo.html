@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Experiment2-2</title>
+    <style>
+        p {
+            font-size: 20px;
+            text-align: left;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        td {
+            font-size: 14px;
+            color: #29292b;
+            border: #a24d8e 1px solid;
+        }
+
+        #showResult {
+            visibility: hidden;
+            margin-left: 10px;
+            border-collapse: collapse;
+        }
+
+        .word {
+            width: 100px;
+        }
+
+        .exp {
+            width: 250px;
+        }
+
+        .container {
+            background: #7aa299;
+            width: 400px;
+            float: left;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        if(typeof openDatabase === "undefined")
+            alert("This browser doesn't support web sql");
+        function save() {
+            var db = openDatabase("dict", "1.0", "字典", 3 * 1024 * 1024);
+            var word = document.getElementById("newWord").value;
+            var def = document.getElementById("def").value;
+            if (word.length === 0 || def.length === 0) {
+                document.getElementById("status").innerText = "The value of '单词' or '解释' should not be empty";
+                return;
+            }
+            db.transaction(function (context) {
+                context.executeSql('CREATE TABLE IF NOT EXISTS dictionary(word UNIQUE, expression)');
+                document.getElementById("status").innerText = "保存成功";
+                context.executeSql('INSERT INTO dictionary(word,expression) VALUES (?,?)', [word, def], null, function (transaction, resultSet) {
+                    if (resultSet.rowsAffected !== 1) {
+                        transaction.executeSql('UPDATE dictionary SET expression=? WHERE word=?', [def, word]);
+                        document.getElementById("status").innerText = "更新成功";
+                    }
+                });
+            });
+        }
+
+        function restore(context) {
+            var arr = context.innerHTML.toString().match(/<td>.+?<\/td>/g);
+            document.getElementById("newWord").value = arr[0].substring(4, arr[0].indexOf("</td>"));
+            document.getElementById("def").value = arr[1].substring(4, arr[1].indexOf("</td>"));
+        }
+
+        function del() {
+            var db = openDatabase("dict", "1.0", "字典", 3 * 1024 * 1024);
+            var word = document.getElementById("newWord").value;
+            if (word.length === 0) {
+                document.getElementById("status").innerText = "The value of '单词' should not be empty";
+                return;
+            }
+            db.transaction(function (context) {
+                context.executeSql('CREATE TABLE IF NOT EXISTS dictionary(word UNIQUE, expression)');
+                context.executeSql('DELETE FROM dictionary WHERE word=?', [word], function (transaction, resultSet) {
+                    if (resultSet.rowsAffected !== 1) {
+                        document.getElementById("status").innerText = "未查询到此单词";
+                    } else if (resultSet.rowsAffected === 1)
+                        document.getElementById("status").innerText = "删除成功";
+                });
+            });
+        }
+
+        function query() {
+            var db = openDatabase("dict", "1.0", "字典", 3 * 1024 * 1024);
+            var wordIn = document.getElementById("qword").value;
+            var tableC = document.getElementById("showResult").innerHTML;
+            var l = tableC.indexOf("</tr>") + 5;
+            document.getElementById("showResult").innerHTML = tableC.substring(0, l);
+            db.transaction(function (context) {
+                context.executeSql('CREATE TABLE IF NOT EXISTS dictionary(word UNIQUE, expression)');
+                context.executeSql('SELECT * FROM dictionary', [], function (transaction, resultSet) {
+                    var len = 0;
+                    for (var i = 0; i < resultSet.rows.length; i++) {
+                        var r = resultSet.rows.item(i);
+                        var rword = r.word.toString();
+                        if (rword.indexOf(wordIn) === -1)
+                            continue;
+                        len += 1;
+                        document.getElementById("showResult").innerHTML +=
+                            "<tr onclick='restore(this)'><td>" + rword + "</td>" +
+                            "<td>" + r.expression + "</td></tr>";
+                    }
+                    if (len > 0)
+                        document.getElementById("showResult").style.visibility = "visible";
+                    document.getElementById("show").style.visibility = "visible";
+                    document.getElementById("results").innerText = "共 " + len + " 个查询结果，点击单词可输入到左栏";
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+<div>
+    <div id="left" class="container" style="height: auto;border: 1px blue solid">
+        <h3 style="margin-left: 10px">添加新单词</h3>
+        <p>
+            单词
+            <input id="newWord" style="width: 200px;height: 30px" type="text" title="添加单词" placeholder="输入要保存的单词">
+        </p>
+        <p>
+            解释
+            <textarea id="def" style="width: 250px;height: 120px;text-align: left;font-size: 18px;resize: none"
+                      title="单词解释"
+                      placeholder="输入单词解释"></textarea>
+        </p>
+        <p>
+            <input type="button" style="font-size: 18px" onClick="save()" id="summit" value="保存">
+            <input type="button" style="font-size: 18px" onClick="del()" id="del" value="删除">
+        </p>
+        <hr style="color:#333333"/>
+        <span id="status" style="margin-left: 10px;font-size: 12px;overflow: hidden;color: red"></span>
+    </div>
+    <div id="right" class="container" style="height: auto;border: 1px red solid;">
+        <h3 style="margin-left: 10px">查询</h3>
+        <p>
+            单词
+            <input id="qword" style="width: 200px;height: 30px" type="text" title="输入要查询的单词(留空查询全部，可输入包含的字母进行模糊查询)"
+                   placeholder="输入要查询的单词">
+            <input type="button" style="font-size: 20px" value="查询" title="查询" onClick="query()">
+        </p>
+        <p>释义</p>
+        <div id="show"
+             style="border: 1px solid gray;color: darkred;visibility: hidden;margin-left: 10px;margin-right: 10px">
+            <span id="results" style="color: #29292b;font-size: 10px;margin-left: 10px"></span><br>
+            <table id="showResult" border="1">
+                <tr>
+                    <th class="word" style="font-size: 16px;color: brown">单词</th>
+                    <th class="exp" style="font-size: 16px;color: brown">解释</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

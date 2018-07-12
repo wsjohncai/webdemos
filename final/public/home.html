@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的主页</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <script src="./javascripts/jquery-3.3.1.min.js"></script>
+    <script src="javascripts/china.js"></script>
+    <script src="javascripts/homepage.js"></script>
+</head>
+<body>
+<div class="frame_all">
+    <div class="bg"></div>
+
+    <!--头像部分-->
+    <div class="header" id="header">
+        <div class="user_header">
+            <div class="head_icon_btn icon_upload_btn">
+                <img class="head_icon" id="head_icon" src="images/default_icon.jpg" alt="头像"/>
+                <input type="file" title="点击更换头像" accept="image/jpeg,image/png" onchange="uploadFiles(this,'icon')">
+            </div>
+            <input type="button" class="logout" id="logout" value="退出登录"/>
+        </div>
+        <!--导航栏-->
+        <div class="nav">
+            <ul class="nav_tabs" id="nav_tabs">
+                <li class="current">主页</li>
+                <li>个人信息</li>
+                <li>文件</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--简介与说明-->
+    <div class="content" id="home">
+        <h1 id="title_username">个人主页</h1>
+        <hr/>
+        <p>个人简介</p>
+        <p id="show_intro"></p>
+    </div>
+
+    <!--修改个人信息-->
+    <div class="content" id="info" hidden>
+        <form autocomplete="off" onsubmit="return submitInfo()">
+            <h2>信息登记</h2>
+            <div class="input_line"><span>用户登录名：</span>
+                <input type="text" name="user_name" value="user" title="用户名"
+                       id="user_name" pattern="[\w_]+" required/>
+                <div class="float_hint">（用户名必须由下划线、英文字符或者数字组合而成）</div>
+            </div>
+            <div class="input_line">
+                <span class="label">密码:</span>
+                <input type="password" name="password" title="密码" placeholder="请输入密码"
+                       pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])\S{6,16}" id="password">
+                <div class="float_hint">密码长度为6-16位，必须包含大写字母、小写字母以及数字</div>
+            </div>
+            <div class="input_line"><span>真实姓名：</span>
+                <input type="text" name="real_name" id="real_name" pattern="^[\u4e00-\u9fa5]{0,}$"
+                       placeholder="例如：李晓华"/>
+            </div>
+            <div class="input_line"><span>真实年龄：</span>
+                <input type="number" name="real_age" id="real_age"
+                       value="24" min="0" max="120" title="真实年龄"/>
+            </div>
+            <div class="input_line"><span>出生日期：</span>
+                <input type="date" name="birthday" id="birthday"
+                       value="1996-10-01" title="出生日期" required/>
+                <div class="float_hint"></div>
+            </div>
+            <div class="input_line"><span>所在省市：</span>
+                <select class="address" id="prov" name="prov" title="省">
+                    <option>--请选择--</option>
+                </select>
+                <select class="address" id="city" name="city" title="市">
+                    <option>--请选择--</option>
+                </select>
+                <select class="address" id="county" name="county" title="县">
+                    <option>--请选择--</option>
+                </select>
+            </div>
+            <div class="input_line"><span>电子邮箱：</span>
+                <input type="email" name="myemail" placeholder="123456@qq.com"
+                       id="email" multiple/>
+                <div class="float_hint">（格式：xxx@xx.com）</div>
+            </div>
+            <div class="input_line"><span>手机号码：</span>
+                <input type="tel" name="phone" id="phone" title="手机号码"
+                       pattern="^\d{11}$"/>
+                <div class="float_hint">（请填写11位手机号码）</div>
+            </div>
+            <div class="input_line"><span>个人主页：</span>
+                <input type="url" name="myurl" id="myurl" list="urllist" placeholder="http://www.qq.com"
+                       pattern="^https?://[-a-zA-Z0-9+&@#/%?=~_|$!:,.;]*[a-zA-Z0-9+&@#/%=~_|$]$"/>
+                <datalist id="urllist">
+                    <option>http://www.qq.com</option>
+                    <option>http://www.baidu.com</option>
+                    <option>http://www.w3school.com.cn</option>
+                </datalist>
+                <div class="float_hint">（请选择网址）</div>
+            </div>
+            <div class="input_line"><span>个人简介</span>
+                <textarea id="intro" title="个人简介" placeholder="介绍下自己吧..."></textarea>
+                <div class="float_hint">（200字以内）</div>
+            </div>
+            <p class="btn">
+                <input type="submit" id="submit_info" value="提交"/>
+                <input type="reset" value="重置"/>
+            </p>
+        </form>
+    </div>
+
+    <!--文件列表-->
+    <div class="content" id="files" hidden>
+        <!--选项面板-->
+        <div class="option_box">
+            <!--按钮面板-->
+            <div class="opt_btns">
+                <img src="images/select_all.png" class="sel_btn" id="sel_btn" title="全选">
+                <div class="display_type">
+                    <img src="images/list_type.png" class="selected" id="in_list" title="列表视图">
+                    <img src="images/icon_type.png" id="in_icon" title="图标视图">
+                </div>
+                <img src="images/refresh.png" title="刷新" class="refresh" onclick="requestFiles(getCurrentFolder())">
+                <img src="images/delete.png" title="删除" class="delete" onclick="onDelete()">
+                <div class="upload icon_upload_btn">
+                    <img title="上传文件" src="images/upload.png"/>
+                    <input type="file" multiple onchange="uploadFiles(this,'file')">
+                </div>
+            </div>
+            <!--路径标签-->
+            <ul class="folders_path" id="folders_path">
+                <li>全部文件</li>
+            </ul>
+        </div>
+        <!--文件表格-->
+        <div class="file_list_box">
+            <div class="file_table_head">
+                <table>
+                    <tr>
+                        <td>文件名</td>
+                        <td>大小</td>
+                        <td>上传时间</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="file_table_cont">
+                <table id="files_table"><tbody></tbody></table>
+            </div>
+        </div>
+    </div>
+
+    <!--提醒框-->
+    <div class="popup_div" id="popup" hidden>
+        <img id="status_icon" src="images/ok.png">
+        <p id="pop_text"></p>
+    </div>
+
+    <!--移动文件框-->
+    <div class="move_div" id="moveto_box" hidden>
+        <h2>移动到文件夹</h2>
+        <div class="path_chooser_div">
+            <ul id="folder_root">
+                <li class="has_items minus">
+                    <div>
+                        <em></em>
+                        <em class="left_icon"></em>
+                        <span>全部文件</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <div style="padding-left: 15px;"><em></em><em class="left_icon"></em><span>folder1</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="padding-left: 15px;"><em></em><em class="left_icon"></em><span>folder2</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="padding-left: 15px;"><em></em><em class="left_icon"></em><span>folder3</span>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has_items minus">
+                    <div>
+                        <em></em>
+                        <em class="left_icon"></em>
+                        <span>wenjianjia1</span>
+                    </div>
+                    <ul>
+                        <li class="has_items minus">
+                            <div style="padding-left: 15px;"><em></em><em class="left_icon"></em><span>folder1</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div style="padding-left: 30px;"><em></em><em
+                                            class="left_icon"></em><span>folder1.1</span></div>
+                                </li>
+                                <li>
+                                    <div style="padding-left: 30px;"><em></em><em
+                                            class="left_icon"></em><span>folder1.2</span></div>
+                                </li>
+                                <li>
+                                    <div style="padding-left: 30px;"><em></em><em
+                                            class="left_icon"></em><span>folder1.3</span></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div style="padding-left: 15px;"><em></em><em class="left_icon"></em><span>folder2</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="padding-left: 15px;"><em></em><em class="left_icon"></em><span>folder3</span>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="moveto_btn_div">
+            <input type="button" value="确认" title="确认移动" id="moveto_btn">
+            <input type="button" value="取消" title="取消" id="cancel_move_btn">
+        </div>
+    </div>
+</div>
+</body>
+</html>

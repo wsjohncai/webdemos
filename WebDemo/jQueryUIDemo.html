@@ -1,0 +1,130 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jquery-ui demos</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1/jquery-ui.min.css">
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <style type="text/css">
+    li {
+        width: 150px;
+    }
+
+    ul div {
+        width: 150px;
+        background: red;
+    }
+    .tab_container{
+    	width: 150px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#TAB1">TAB1</a></li>
+            <li><a href="#TAB2">TAB2</a></li>
+            <li><a href="#TAB3">TAB3</a></li>
+            <li><a href="#TAB4">TAB4</a></li>
+        </ul>
+        <div id="TAB1">
+            <div class="tab_container">
+                <ul id="menu1">
+                    <li>
+                        <div>help</div>
+                    </li>
+                    <li>
+                        <div>test</div>
+                    </li>
+                    <li>
+                        <div>support</div>
+                        <ul>
+                            <li>
+                                <div>submenu</div>
+                            </li>
+                            <li>
+                                <div>submenu2</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="TAB2">
+            <ul id="menu2">
+                <li>
+                    <div>help</div>
+                </li>
+                <li>
+                    <div>test</div>
+                </li>
+                <li>
+                    <div>support</div>
+                    <ul>
+                        <li>
+                            <div>submenu</div>
+                        </li>
+                        <li>
+                            <div>submenu2</div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="TAB3">
+            <ul id="menu3">
+                <li>
+                    <div>help</div>
+                </li>
+                <li>
+                    <div>test</div>
+                </li>
+                <li>
+                    <div>support</div>
+                    <ul>
+                        <li>
+                            <div>submenu</div>
+                        </li>
+                        <li>
+                            <div>submenu2</div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="TAB4">
+            <ul id="menu4">
+                <li>
+                    <div>help</div>
+                </li>
+                <li>
+                    <div>test</div>
+                </li>
+                <li>
+                    <div>support</div>
+                    <ul>
+                        <li>
+                            <div>submenu</div>
+                        </li>
+                        <li>
+                            <div>submenu2</div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $("#tabs").tabs();
+    $("#menu1").menu();
+    $("#menu2").menu();
+    $("#menu3").menu();
+    $("#menu4").menu();
+    </script>
+</body>
+
+</html>

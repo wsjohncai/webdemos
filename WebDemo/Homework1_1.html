@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <style>
+        div {
+            text-align: center;
+            font-size: 20px;
+            font-family: 微软雅黑, serif;
+            line-height: 40px;
+        }
+
+        div form p {
+            background: antiquewhite;
+        }
+
+        input {
+            width: 300px;
+            height: 22px;
+        }
+
+        input[name^=gender], input[type^=submit] {
+            width: auto;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.input_demo').blur(function () {
+                var pattern = this.getAttribute("pattern");
+                var value = this.value;
+                // document.getElementById("demo").innerHTML = value + "::" + pattern;
+                if (value.length !== 0 && !value.match(pattern)) {
+                    $(this).css("color", "red");
+                }
+            });
+        });
+        $(function () {
+            $('.input_demo').focus(function () {
+                $(this).css("color", "black")
+            })
+        });
+    </script>
+</head>
+<body>
+<div>
+    <form>
+        用户名: <input id="username" class="input_demo" type="text" name="username" placeholder="请输入用户名：开头必须为英文字母"
+                    required pattern="^[a-zA-Z]\S*$"/> *<br/>
+        密码: <input type="password" class="input_demo" name="password" placeholder="请输入密码：8~16位，须包含英文和数字" required
+                   pattern="^(?=\S*?[a-zA-Z])(?=\S*?[0-9])\S{8,16}$"/> *<br/>
+        邮箱: <input type="email" class="input_demo" name="email" placeholder="请输入邮箱" required pattern="^\w+@\w+\.\w+"/> *<br/>
+        性别: <input type="radio" class="input_demo" title="gender" required name="gender">男
+        <input type="radio" class="input_demo" title="gender" required name="gender">女
+        *<br/>
+        学生证号: <input type="text" class="input_demo" placeholder="请输入学号" required pattern="^\d{2}(15|16)\d{6}$"> *<br/>
+        手机号码: <input type="text" class="input_demo" placeholder="请输入11位手机号码" required pattern="^\d{11}$"> *<br/>
+        <input type="submit" value="确认"/>
+    </form>
+    <p id="demo"></p>
+</div>
+</body>
+</html>

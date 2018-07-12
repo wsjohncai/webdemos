@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Storage Demo</title>
+</head>
+<body>
+<span id="showCount" style="font-size: large"></span>
+<script type="text/javascript">
+    var count = localStorage.getItem("visitCount");
+    if (count != null) {
+        var countInt = parseInt(count) + 1;
+        localStorage.setItem("visitCount", countInt.toString());
+        alert("访问次数：" + count)
+    }
+    else {
+        count = 1;
+        localStorage.setItem("visitCount", "1");
+    }
+    document.getElementById("showCount").innerHTML = "访问次数：" + count;
+</script>
+</body>
+</html>
