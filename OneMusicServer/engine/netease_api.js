@@ -11,9 +11,9 @@ function a(a) {
 }
 
 function b(a, b) {
-    var c = CryptoJS.enc.Utf8.parse(b), //key
-        d = CryptoJS.enc.Utf8.parse("0102030405060708"), //iv
-        e = CryptoJS.enc.Utf8.parse(a), //data
+    var c = CryptoJS.enc.Utf8.parse(b), // key
+        d = CryptoJS.enc.Utf8.parse("0102030405060708"), // iv
+        e = CryptoJS.enc.Utf8.parse(a), // data
         f = CryptoJS.AES.encrypt(e, c, {iv: d, mode: CryptoJS.mode.CBC});
     return f.toString();
 }
@@ -350,7 +350,7 @@ var param3 = '0CoJUm6Qyw8W8jud';
 function init(type) {
     var param;
     if (type === 1) {
-        //搜索歌曲时使用的参数
+        // 搜索歌曲时使用的参数
         param = {
             "hlpretag": "<span class=\"s-fc7\">",
             "hlposttag": "</span>",
@@ -362,14 +362,14 @@ function init(type) {
             "csrf_token": "680489892842905b270c1b1fe6d9b257"
         };
         _path = '/weapi/cloudsearch/get/web?csrf_token=';
-    } else {  //搜索建议时使用的参数
+    } else {  // 搜索建议时使用的参数
         param = {"s": _searchKey, "limit": _limit, "csrf_token": "680489892842905b270c1b1fe6d9b257"};
         _path = '/weapi/search/suggest/web?csrf_token=';
     }
     param0 = JSON.stringify(param);
 }
 
-module.exports = function (keyword, type, limit, offset) {
+function tool(keyword, type, limit, offset) {
     _searchKey = keyword;
     _offset = offset ? offset : 0;
     _limit = limit ? limit : 30;
@@ -378,35 +378,37 @@ module.exports = function (keyword, type, limit, offset) {
     return {data: querystring.stringify(data), host: 'music.163.com', path: _path};
 };
 
-//=============以下是示例========
+module.exports = function(opts, result){
+	tool(opts.key, opts.type, opts.limit, opts.offset);
 
-init(1);
+	var h = d(param0, param1, param2, param3);
 
-var h = d(param0, param1, param2, param3);
+	var contents = querystring.stringify({
+	    params: h.encText,
+	    encSecKey: h.encSecKey
+	});
 
-var contents = querystring.stringify({
-    params: h.encText,
-    encSecKey: h.encSecKey
-});
+	var options = {
+	    host: 'music.163.com',
+	    path: _path,
+	    method: 'POST',
+	    headers: {
+	        'Content-Type': 'application/x-www-form-urlencoded',
+	        'Content-Length': contents.length
+	    }
+	};
 
-var options = {
-    host: 'music.163.com',
-    path: _path,
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': contents.length
-    }
+	var req = http.request(options, function (res) {
+	    res.setEncoding('utf8');
+		var alldata = '';
+	    res.on('data', function (data) {
+	        alldata += data; 
+	    }).on('end', function(){
+	        result(alldata);
+	    });
+	});
+
+	req.write(contents);
+	req.end;
 };
 
-var alldata = '';
-var req = http.request(options, function (res) {
-    res.setEncoding('utf8');
-    res.on('data', function (data) {
-        alldata += data;   //一段html代码
-        console.log(alldata);
-    });
-});
-
-req.write(contents);
-req.end;
