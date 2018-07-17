@@ -1,15 +1,15 @@
 package cn.crm.domain;
 
 public class User {
-	// Ö÷¼ü
+	// ä¸»é”®
 	private Long user_id;
-	// µÇÂ¼Ãû³Æ
+	// ç™»å½•åç§°
 	private String user_code;
-	// ÓÃ»§ĞÕÃû
+	// ç”¨æˆ·å§“å
 	private String user_name;
-	// ÃÜÂë£¨±£´æµÄÊ±ºò£¬ĞèÒª¼ÓÃÜ´¦Àí£©
+	// å¯†ç ï¼ˆä¿å­˜çš„æ—¶å€™ï¼Œéœ€è¦åŠ å¯†å¤„ç†ï¼‰
 	private String user_password;
-	// ÓÃ»§µÄ×´Ì¬ 1Õı³£ 0ÔİÍ£
+	// ç”¨æˆ·çš„çŠ¶æ€ 1æ­£å¸¸ 0æš‚åœ
 	private String user_state;
 	public Long getUser_id() {
 		return user_id;
@@ -42,5 +42,14 @@ public class User {
 		this.user_state = user_state;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "User{" +
+				"user_id=" + user_id +
+				", user_code='" + user_code + '\'' +
+				", user_name='" + user_name + '\'' +
+				", user_password='" + user_password + '\'' +
+				", user_state='" + user_state + '\'' +
+				'}';
+	}
 }

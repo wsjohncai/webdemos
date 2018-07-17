@@ -1,5 +1,7 @@
 package cn.crm.dao;
 
-public interface UserDao {
+import cn.crm.domain.User;
 
+public interface UserDao {
+    boolean hasUser(User u);
 }

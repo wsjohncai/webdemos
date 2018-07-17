@@ -1,5 +1,6 @@
 package cn.crm.service;
 
+import cn.crm.domain.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.crm.dao.UserDao;
@@ -12,5 +13,9 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
+	@Override
+	public boolean checkUser(User u) {
+		return userDao.hasUser(u);
+	}
 }

@@ -1,0 +1,141 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    width: 100%;
+    height: 100%;
+    max-height: 1000px;
+    position: absolute;
+}
+.bg{
+    width: 100%;
+    height: 100%;
+    background: url("../images/header_bg.jpg") no-repeat;
+    background-size: cover;
+    position: fixed;
+}
+.form_box{
+    width: 400px;
+    position: absolute;
+    background-color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 20px;
+    top:25%;
+    left: 35%;
+    border: rgba(255,255,255,0.5) 1px solid;
+    border-radius: 10px;
+}
+.login_box {
+    height: 220px;
+}
+.register_box{
+    height: 250px;
+}
+.form_box>p{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.login_box div{
+    width: 100%;
+    height: 25px;
+    margin-bottom: 25px;
+    padding: 1px;
+}
+.input_line{
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 1px;
+    position: relative;
+}
+.label{
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    padding: 1px;
+    margin-right: 5px;
+    font-size: 18px;
+    font-family: 微软雅黑,sans-serif;
+}
+.input_field{
+    width: 180px;
+    font-size: 15px;
+    padding: 3px;
+    margin-right: 5px;
+    border: #00B7FF solid 1px;
+}
+.btn_div input{
+    font-size: 15px;
+    width: 100px;
+    font-family: 微软雅黑,sans-serif;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 25px;
+    border-color: rgba(0,0,0,0);
+    -webkit-appearance: button-bevel;
+    -moz-appearance: button-bevel;
+}
+.login_button{
+    background: #dc5353;
+}
+.login_button:hover{
+    background: #dc6d73;
+}
+.register_button{
+    background: #ffb968;
+}
+.register_button:hover{
+    background: #ffc978;
+}
+.input_line .float_hint{
+    float: left;
+    background: rgba(246, 213, 84, 0.8);
+    width: 200px;
+    font-size: 15px;
+    border-radius: 8px;
+    position: absolute;
+    opacity: 0;
+}
+.user_hint{
+    top: 0%;
+    left: 90%;
+}
+.passwd_hint{
+    top: 0%;
+    left: 90%;
+}
+.passwd2_hint{
+    top: 0%;
+    left: 90%;
+}
+.input_line:hover .float_hint{
+    opacity: 1;
+    transition: all 0.5s ease-out 0s;
+}
+.popup_div{
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    background: rgba(255,255,255,0.8);
+    text-align: center;
+    top: 350px;
+    left: 40%;
+    float: left;
+    border-radius: 10px 10px;
+    box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.6);
+}
+.popup_div img{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    left: 10px;
+    float: left;
+    opacity: 0.8;
+}
+.popup_div p{
+    display: inline-block;
+    height: 50px;
+    width: 200px;
+    padding: 15px;
+    font-size: 15px;
+}

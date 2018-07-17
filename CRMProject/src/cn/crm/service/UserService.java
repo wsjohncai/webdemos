@@ -1,5 +1,7 @@
 package cn.crm.service;
 
-public interface UserService {
+import cn.crm.domain.User;
 
+public interface UserService {
+    boolean checkUser(User u);
 }
