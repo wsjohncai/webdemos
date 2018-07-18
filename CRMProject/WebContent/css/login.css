@@ -44,7 +44,7 @@ body{
 }
 .input_line{
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding: 1px;
     position: relative;
 }
@@ -95,16 +95,6 @@ body{
     border-radius: 8px;
     position: absolute;
     opacity: 0;
-}
-.user_hint{
-    top: 0%;
-    left: 90%;
-}
-.passwd_hint{
-    top: 0%;
-    left: 90%;
-}
-.passwd2_hint{
     top: 0%;
     left: 90%;
 }

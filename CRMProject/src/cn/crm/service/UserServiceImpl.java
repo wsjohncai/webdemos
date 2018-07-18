@@ -18,4 +18,15 @@ public class UserServiceImpl implements UserService {
 	public boolean checkUser(User u) {
 		return userDao.hasUser(u);
 	}
+
+	@Override
+	public boolean checkCode(String usercode) {
+		return userDao.hasCode(usercode);
+	}
+
+	@Override
+	public boolean saveUser(User u) {
+		return userDao.save(u);
+	}
+	
 }

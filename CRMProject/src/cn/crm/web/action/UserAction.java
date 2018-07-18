@@ -2,48 +2,103 @@ package cn.crm.web.action;
 
 import cn.crm.domain.User;
 import cn.crm.service.UserService;
-import cn.crm.service.UserServiceImpl;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class UserAction extends ActionSupport implements ModelDriven<User> {
 
-    private User user = new User();
-    private UserService userService;
-    private String username, password;
+	private User user = new User();
+	private UserService userService;
+	@Override
+	public User getModel() {
+		System.out.println("User: " + user);
+		return user;
+	}
 
-    @Override
-    public User getModel() {
-        return user;
-    }
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
-    public void setUserService(UserServiceImpl userService) {
-        this.userService = userService;
-    }
+	//����û�������
+	public String checkCode() {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html");
+		PrintWriter writer = null;
+		String status = "";
+		try {
+			writer = response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (userService.checkCode(user.getUser_code())) {
+			status = "exist";
+		} else
+			status = "not_exist";
+		writer.print(status);
+		writer.flush();
+		writer.close();
+		return null;
+	}
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String login() {
-        User u = new User();
-        u.setUser_name(username);
-        u.setUser_password(password);
-        System.out.println(u);
-        if (userService.checkUser(u))
-            return "loginOK";
-        return "not_exist";
-    }
+	//��¼
+	public String login() {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html");
+		PrintWriter writer = null;
+		String status = "";
+		try {
+			writer = response.getWriter();
+			if (!userService.checkCode(user.getUser_code())) {
+				status = "not_exist";
+			}
+			if (status == "") {
+				if (userService.checkUser(user)) {
+					status = "success";
+				} else
+					status = "fail";
+			}
+			writer.print(status);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			writer.flush();
+			writer.close();
+		}
+		return null;
+	}
+	
+	//ע��
+	public String register() {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html");
+		PrintWriter writer = null;
+		String status = "";
+		try {
+			writer = response.getWriter();
+			if (userService.checkCode(user.getUser_code())) {
+				status = "exist";
+			}
+			if (status == "") {
+				user.setUser_state("1");
+				if (userService.saveUser(user)) {
+					status = "success";
+				} else
+					status = "fail";
+			}
+			writer.print(status);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			writer.flush();
+			writer.close();
+		}
+		return null;
+	}
 }
