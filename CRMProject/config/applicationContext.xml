@@ -15,10 +15,10 @@
 	
 	<!-- 先配置C3P0的连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-		<property name="jdbcUrl" value="jdbc:mysql:///crm"/>
-		<property name="user" value="root"/>
-		<property name="password" value=""/>
+		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql:///test"/>
+		<property name="user" value="wsjohncai"/>
+		<property name="password" value="1092647174"/>
 	</bean>
 	
 	<!-- LocalSessionFactoryBean加载配置文件 -->
@@ -53,7 +53,7 @@
 	</bean>
 	
 	<!-- 开启事务的注解 -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven/>
 	
 	
 	<!-- 配置客户模块 
@@ -75,11 +75,11 @@
 		<property name="userService" ref="userService"/>
 	</bean>
 	
-	<bean id="userService" class="cn.crm.service.UserServiceImpl">
+	<bean id="userService" class="cn.crm.service.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>
 	</bean>
 	
-	<bean id="userDao" class="cn.crm.dao.UserDaoImpl">
+	<bean id="userDao" class="cn.crm.dao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	

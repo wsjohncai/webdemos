@@ -1,6 +1,7 @@
-package cn.crm.service;
+package cn.crm.service.impl;
 
 import cn.crm.domain.User;
+import cn.crm.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.crm.dao.UserDao;

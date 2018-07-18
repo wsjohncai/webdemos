@@ -18,7 +18,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 	private UserService userService;
 	@Override
 	public User getModel() {
-		System.out.println("User: " + user);
 		return user;
 	}
 
@@ -26,29 +25,31 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		this.userService = userService;
 	}
 
-	//����û�������
+	//检查用户名
 	public String checkCode() {
+		System.out.println("Action-User: " + user);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html");
 		PrintWriter writer = null;
 		String status = "";
 		try {
 			writer = response.getWriter();
+			if (userService.checkCode(user.getUser_code())) {
+				status = "exist";
+			} else
+				status = "not_exist";
+			writer.print(status);
+			writer.flush();
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (userService.checkCode(user.getUser_code())) {
-			status = "exist";
-		} else
-			status = "not_exist";
-		writer.print(status);
-		writer.flush();
-		writer.close();
 		return null;
 	}
 
-	//��¼
+	//登录方法
 	public String login() {
+		System.out.println("Action-User: " + user);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html");
 		PrintWriter writer = null;
@@ -58,7 +59,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 			if (!userService.checkCode(user.getUser_code())) {
 				status = "not_exist";
 			}
-			if (status == "") {
+			if (status.equals("")) {
 				if (userService.checkUser(user)) {
 					status = "success";
 				} else
@@ -74,8 +75,9 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return null;
 	}
 	
-	//ע��
+	//注册
 	public String register() {
+		System.out.println("Action-User: " + user);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html");
 		PrintWriter writer = null;
@@ -85,7 +87,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 			if (userService.checkCode(user.getUser_code())) {
 				status = "exist";
 			}
-			if (status == "") {
+			if (status.equals("")) {
 				user.setUser_state("1");
 				if (userService.saveUser(user)) {
 					status = "success";
