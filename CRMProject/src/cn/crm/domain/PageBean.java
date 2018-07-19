@@ -1,4 +1,4 @@
-﻿package cn.crm.domain;
+package cn.crm.domain;
 
 import java.util.List;
 
@@ -20,8 +20,18 @@ public class PageBean<T> {
 	private int pageSize;
 	// 每页显示的数据
 	private List<T> beanList;
-	
-	public int getPageCode() {
+	//来源查询条件,级别条件，姓名条件
+    private String[] cons;
+
+    public String[] getCons() {
+        return cons;
+    }
+
+    public void setCons(String[] cons) {
+        this.cons = cons;
+    }
+
+    public int getPageCode() {
 		return pageCode;
 	}
 	public void setPageCode(int pageCode) {

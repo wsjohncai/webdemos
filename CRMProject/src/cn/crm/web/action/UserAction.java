@@ -3,18 +3,14 @@ package cn.crm.web.action;
 import cn.crm.domain.User;
 import cn.crm.service.UserService;
 import cn.crm.util.MD5Utils;
-
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang3.ObjectUtils.Null;
-import org.apache.struts2.ServletActionContext;
-
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class UserAction extends ActionSupport implements ModelDriven<User> {
 
@@ -58,7 +54,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		String s = (String) session.getAttribute("user");
 		System.out.println("Session: " + s);
 		if (s != null) {
-			if (s.indexOf(";") == -1)
+			if (!s.contains(";"))
 				return status;
 			String[] attrs = s.split(";");
 			User u = new User();

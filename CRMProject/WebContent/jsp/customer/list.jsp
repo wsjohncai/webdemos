@@ -18,8 +18,10 @@
 			$("#page").val(page);
 		}
 		document.customerForm.submit();
-
 	}
+	function submitInfo() {
+        var curpage = $('#page').val();
+    }
 </SCRIPT>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
@@ -67,21 +69,21 @@
 											<TBODY>
 												<TR>
 													<TD>客户名称：</TD>
-													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="custname"></TD>
+													<TD><input class=textbox style="WIDTH: 80px" value="${page.cons[0]}"
+                                                               maxLength=50 name="custname" /></TD>
 													<TD>客户级别：</TD>
 													<TD><select name="custlevel">
-															<option> </option>
+															<option value="${page.cons[2]}"></option>
 															<option>普通客户</option>
 															<option>VIP客户</option>
 													</select></TD>
 													<TD>客户来源：</TD>
 													<TD><select name="custsource">
-															<option> </option>
+															<option value="${page.cons[1]}"></option>
 															<option>网络营销</option>
 															<option>推广活动</option>
 													</select></TD>
-													<TD><INPUT class=button type=submit
+													<TD><INPUT class="button" type="submit"
 														value=" 筛选 "></TD>
 												</TR>
 											</TBODY>

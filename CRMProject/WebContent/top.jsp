@@ -66,7 +66,7 @@ P {
 	</FORM>
 </body>
 <script>
-var user =<%=session.getAttribute("usercode")%>;
+var user ='<%=session.getAttribute("usercode")%>';
 	$(function(){
 	});
 </script>
