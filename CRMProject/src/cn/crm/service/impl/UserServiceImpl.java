@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkUser(User u) {
+	public User checkUser(User u) {
 		return userDao.hasUser(u);
 	}
 
@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean saveUser(User u) {
+		u.setUser_state("1");
 		return userDao.save(u);
 	}
 	

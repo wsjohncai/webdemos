@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
-<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HTML>
 <HEAD>
 <TITLE>客户关系管理系统</TITLE> 
 <META http-equiv=Content-Type content="text/html; charset=utf-8">

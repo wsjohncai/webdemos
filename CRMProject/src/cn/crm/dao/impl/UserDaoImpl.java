@@ -7,11 +7,11 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import java.util.List;
 
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
-    @Override
-    public boolean hasUser(User u) {
-        List<User> list = this.getHibernateTemplate().findByExample(u);
-        return list.size() == 1;
-    }
+	@Override
+	public User hasUser(User u) {
+		List<User> list = this.getHibernateTemplate().findByExample(u);
+		return list.size() == 1 ? list.get(0) : null;
+	}
 
 	@Override
 	public boolean hasCode(String usercode) {

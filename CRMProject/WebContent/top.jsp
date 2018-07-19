@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
-<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HTML>
 <HEAD id=Head1>
 <TITLE>顶部</TITLE>
 <META http-equiv=Content-Type content="text/html; charset=utf-8">
@@ -36,10 +36,10 @@ P {
 	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
 }
 </STYLE>
-
+<script src="${pageContext.request.contextPath}/js/jquery-1.4.4.min.js"></script>
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
 </HEAD>
-<BODY>
+<body>
 	<FORM id=form1 name=form1 action="" method=post>
 		<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
 			<TBODY>
@@ -49,16 +49,11 @@ P {
 					<TD background=images/new_002.jpg>
 						<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
 							<TBODY>
+								<TR><TD align=right height=35></TD></TR>
 								<TR>
-									<TD align=right height=35></TD>
-								</TR>
-								<TR>
-									<TD height=35 align="right">
-										当前用户：XXXX
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<A href="#" target=_top><FONT color=red>修改密码</FONT></A>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<A href="#" target=_top><FONT color=red>安全退出</FONT></A>
+									<TD height=35 align="right"><span id="current_user" >当前用户：<%=session.getAttribute("usercode")%></span>&nbsp;&nbsp;&nbsp;&nbsp; 
+									<A href="#" target=_top><FONT color=red>修改密码</FONT></A> &nbsp;&nbsp;&nbsp;&nbsp; 
+									<A href="${pageContext.request.contextPath}/user_logout.action" target=_top><FONT color=red>安全退出</FONT></A>
 									</TD>
 								</TR>
 							</TBODY>
@@ -69,9 +64,10 @@ P {
 			</TBODY>
 		</TABLE>
 	</FORM>
-</BODY>
-</HTML>
-
-
 </body>
+<script>
+var user =<%=session.getAttribute("usercode")%>;
+	$(function(){
+	});
+</script>
 </html>

@@ -78,6 +78,13 @@
 </div>
 <script>
     $(function () {
+    	$.ajax({
+    		url:'user_login.action',
+    		success:function(data){
+    			if(data=='success')
+    				location.href='${pageContext.request.contextPath}/index.jsp'
+    		}
+    	})
         var login_box = $('#login_box');
         var reg_box = $('#register_box');
         $('#reg_btn').click(function () {

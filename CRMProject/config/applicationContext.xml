@@ -14,11 +14,11 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
 	<!-- 先配置C3P0的连接池 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
 		<property name="jdbcUrl" value="jdbc:mysql:///test"/>
-		<property name="user" value="wsjohncai"/>
-		<property name="password" value="1092647174"/>
+		<property name="user" value="root"/>
+		<property name="password" value=""/>
 	</bean>
 	
 	<!-- LocalSessionFactoryBean加载配置文件 -->
@@ -39,10 +39,8 @@
 		<property name="mappingResources">
 			<list>
 				<value>cn/crm/domain/User.hbm.xml</value>
-				<!-- 
-				<value>com/itheima/domain/Customer.hbm.xml</value>
-				<value>com/itheima/domain/Dict.hbm.xml</value>
-				 -->
+				<value>cn/crm/domain/Customer.hbm.xml</value>
+				<value>cn/crm/domain/Dict.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -55,20 +53,28 @@
 	<!-- 开启事务的注解 -->
 	<tx:annotation-driven/>
 	
-	
-	<!-- 配置客户模块 
+	<!-- 配置客户模块 -->
 	<bean id="customerAction" class="cn.crm.web.action.CustomerAction" scope="prototype">
 		<property name="customerService" ref="customerService"/>
+		<property name="dictService" ref="dictService"/>
 	</bean>
 	
-	<bean id="customerService" class="cn.crm.service.CustomerServiceImpl">
+	<bean id="customerService" class="cn.crm.service.impl.CustomerServiceImpl">
 		<property name="customerDao" ref="customerDao"/>
 	</bean>
 	
-	<bean id="customerDao" class="cn.crm.dao.CustomerDaoImpl">
+	<bean id="customerDao" class="cn.crm.dao.impl.CustomerDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
-	-->
+	 
+	<!-- 配置字典 -->
+	<bean id="dictService" class="cn.crm.service.impl.DictServiceImpl">
+		<property name="dictDao" ref="dictDao"/>
+	</bean>
+	
+	<bean id="dictDao" class="cn.crm.dao.impl.DictDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 	 
 	<!-- 配置用户的模块 -->
 	<bean id="userAction" class="cn.crm.web.action.UserAction" scope="prototype">
