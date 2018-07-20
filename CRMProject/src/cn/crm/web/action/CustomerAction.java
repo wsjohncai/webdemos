@@ -4,6 +4,8 @@ import cn.crm.domain.Customer;
 import cn.crm.domain.Dict;
 import cn.crm.domain.PageBean;
 import cn.crm.service.CustomerService;
+import cn.crm.util.UploadUtil;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -56,8 +58,9 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 
 			// 保存文件
 //			FileUtils.copyFile(upload, new File(path, uploadFileName));
-			upload.renameTo(new File(path, uploadFileName));
-			customer.setCust_file_path(pathS + "\\" + uploadFileName);
+			String name = UploadUtil.getUUIDName(uploadFileName);
+			upload.renameTo(new File(path, name));
+			customer.setCust_file_path(pathS + "\\" + name);
 		}
 		customerService.save(customer);
 		return "toPage";
