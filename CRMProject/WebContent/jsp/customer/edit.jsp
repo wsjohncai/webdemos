@@ -132,11 +132,6 @@
                                 <option value="${customer.cust_industry.dict_id}" selected>${customer.cust_industry.dict_item_name}</option>
                             </select>
                         </td>
-                        <td>创建人 ：</td>
-                        <td>
-                            <INPUT class=textbox id=ccreateId style=" WIDTH: 180px" maxLength=50
-                                   name="cust_create_id" value="${customer.cust_create_id }">
-                        </td>
                     </TR>
                     <tr>
                         <td rowspan=2>

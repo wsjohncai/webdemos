@@ -3,7 +3,7 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-
+    <constant name="struts.multipart.maxSize" value="52428800"/>
 	<!-- 先配置包结构 -->
 	<package name="crm" extends="struts-default" namespace="/">
 
@@ -12,15 +12,23 @@
 			<result name="login" type="redirect">/login.jsp</result>
 		</global-results>
 
-		<action name="dict_*" class="dictAction" method="{1}">
-
-        </action>
+		<action name="dict_*" class="dictAction" method="{1}"></action>
 
 		<!-- 配置客户的Action，如果Action由Spring框架来管理，class标签上只需要编写ID值就OK -->
 		<action name="customer_*" class="customerAction" method="{1}">
+			<!-- 指定（限制）上传文件的类型，定义局部拦截器，修改默认拦截器的属性 
+	              "fileUpload.maximumSize" ：限制上传最大的文件大小。 
+	              "fileUpload.allowedTypes"：允许上传文件的类型。
+	              "fileUpload.allowedExtensions"：允许上传文件的可扩展文件类型。 
+	        -->
+			<interceptor-ref name="defaultStack">
+	            <param name="fileUpload.allowedTypes">text/plain,image/jpeg,image/png,image/gif</param>
+	            <param name="fileUpload.allowedExtensions">.txt,.jpg,.png,.gif</param>
+	        </interceptor-ref>
+	        
 			<result name="page">/jsp/customer/list.jsp</result>
-            <result name="editPage">/jsp/customer/edit.jsp</result>
-            <result name="toPage" type="redirectAction">customer_findByPage.action</result>
+			<result name="editPage">/jsp/customer/edit.jsp</result>
+			<result name="toPage" type="redirectAction">customer_findByPage.action</result>
 		</action>
 
 		<!-- 配置用户的模块 -->
