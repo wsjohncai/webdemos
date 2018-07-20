@@ -99,7 +99,7 @@
             var code = $('#user_code').val();
             if (code === "")
                 return;
-            else if (!code.match(/[\w_]+/g)) {
+            else if (!code.match(/[\w_]+/g) || code === 'null') {
                 $('.user_hint').css({
                     'opacity': '1',
                     'color': 'red',

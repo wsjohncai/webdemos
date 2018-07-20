@@ -90,7 +90,7 @@
                         </td>
                         <td>创建人 ：</td>
                         <td>
-                            <INPUT class=textbox id=czip style="WIDTH: 180px" maxLength=50 name="cust_create_id">
+                            <INPUT class=textbox id=ccreateId style="WIDTH: 180px" maxLength=50 name="cust_create_id">
                         </td>
                     </TR>
                     <tr>

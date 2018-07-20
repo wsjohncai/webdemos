@@ -7,6 +7,7 @@ import cn.crm.domain.PageBean;
 
 public interface CustomerService {
 	boolean save(Customer customer);
-
+	void delete(Customer customer);
+	Customer findById(String id);
 	PageBean<Customer> findByPage(Integer pageCode, Integer pageSize, DetachedCriteria criteria);
 }

@@ -22,6 +22,16 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public void delete(Customer customer) {
+		customerDao.delete(customer);
+	}
+
+	@Override
+	public Customer findById(String id) {
+	    return customerDao.findById(id);
+	}
+
+	@Override
 	public PageBean<Customer> findByPage(Integer pageCode, Integer pageSize, DetachedCriteria criteria) {
 		return customerDao.findByPage(pageCode,pageSize,criteria);
 	}

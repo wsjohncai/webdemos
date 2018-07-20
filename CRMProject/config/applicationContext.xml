@@ -56,7 +56,6 @@
 	<!-- 配置客户模块 -->
 	<bean id="customerAction" class="cn.crm.web.action.CustomerAction" scope="prototype">
 		<property name="customerService" ref="customerService"/>
-		<property name="dictService" ref="dictService"/>
 	</bean>
 	
 	<bean id="customerService" class="cn.crm.service.impl.CustomerServiceImpl">
@@ -68,6 +67,10 @@
 	</bean>
 	 
 	<!-- 配置字典 -->
+	<bean id="dictAction" class="cn.crm.web.action.DictAction" scope="prototype">
+        <property name="dictService" ref="dictService" />
+    </bean>
+
 	<bean id="dictService" class="cn.crm.service.impl.DictServiceImpl">
 		<property name="dictDao" ref="dictDao"/>
 	</bean>

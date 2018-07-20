@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static cn.crm.util.StateValidate.validateState;
+
 public class UserAction extends ActionSupport implements ModelDriven<User> {
 
 	private User user = new User();
@@ -48,31 +50,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return null;
 	}
 
-	// 检测登录用户的合法性
-	private String validateLogin(HttpSession session) {
-		String status = "";
-		String s = (String) session.getAttribute("user");
-		System.out.println("Session: " + s);
-		if (s != null) {
-			if (!s.contains(";"))
-				return status;
-			String[] attrs = s.split(";");
-			User u = new User();
-			u.setUser_code(attrs[0]);
-			User u1 = userService.checkUser(u);
-			if (u1 != null) {
-				String text = u1.getUser_code() + u1.getUser_password();
-				String code = MD5Utils.md5(text);
-				if (code.equals(attrs[1]))
-					status = "success";
-				else
-					status = "fail";
-			} else
-				status = "fail";
-		}
-		return status;
-	}
-
 	//登出方法
 	public String logout() {
 		HttpSession session = ServletActionContext.getRequest().getSession();
@@ -91,7 +68,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		try {
 			writer = response.getWriter();
 			HttpSession session = ServletActionContext.getRequest().getSession();
-			String loginC = validateLogin(session);
+			String loginC = validateState(session, userService);
 			if (!loginC.equals("")) {
 				writer.print(loginC);
 				return null;

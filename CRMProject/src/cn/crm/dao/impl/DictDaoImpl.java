@@ -11,8 +11,12 @@ public class DictDaoImpl extends HibernateDaoSupport implements DictDao {
     @Override
     public Dict findByItemName(String name) {
         List<Dict> list = (List<Dict>) getHibernateTemplate().find("from Dict where dict_item_name=?", name);
-        System.out.println(list);
         return list.size() == 1 ? list.get(0) : null;
+    }
+
+    @Override
+    public List<Dict> findByCode(String code) {
+        return (List<Dict>) getHibernateTemplate().find("from Dict where dict_type_code=?", code);
     }
 
 }
