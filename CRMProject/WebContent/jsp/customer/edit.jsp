@@ -10,15 +10,49 @@
     <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
     <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
           rel=stylesheet>
-
-
     <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+    <script src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		var lvl='${customer.cust_level.dict_id}',src='${customer.cust_source.dict_id}',ids='${customer.cust_industry.dict_id}';
+    		var data = {dict_type_code: '006'};
+            $.post('dict_codeForItems', data, function (res) {
+                $(res).each(function (idx, obj) {
+                    var sel_lvl = lvl;
+                    sel_lvl = (sel_lvl === obj.dict_id ? 'selected' : '');
+                    if(sel_lvl === 'selected')
+                    	return;
+                    $('#i_lvl').append('<option value="' + obj.dict_id + '" ' + sel_lvl + '>' + obj.dict_item_name + '</option>');
+                })
+            });
+            data = {dict_type_code: '002'};
+            $.post('dict_codeForItems', data, function (res) {
+                $(res).each(function (idx, obj) {
+                    var sel_src = src;
+                    sel_src = (sel_src === obj.dict_id ? 'selected' : '');
+                    if(sel_src === 'selected')
+                    	return;
+                    $('#i_src').append('<option value="' + obj.dict_id + '" ' + sel_src + '>' + obj.dict_item_name + '</option>');
+                })
+            });
+            data = {dict_type_code: '001'};
+            $.post('dict_codeForItems', data, function (res) {
+                $(res).each(function (idx, obj) {
+                    var sel_industry = ids;
+                    sel_industry = (sel_industry === obj.dict_id ? 'selected' : '');
+                    if(sel_industry === 'selected')
+                    	return;
+                    $('#i_industry').append('<option value="' + obj.dict_id + '" ' + sel_industry + '>' + obj.dict_item_name + '</option>');
+                })
+            });
+    	});
+    </script>
 </HEAD>
 <BODY>
 <FORM id=form1 name=form1
       action="<s:url action="customer_update"/>"
       method=post>
-    <input type="hidden" name="cust_id" value="${customer.cust_id }"/>
+    <input type="hidden" name="cust_id" value="${cust_id }"/>
 
     <TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
         <TBODY>
@@ -57,7 +91,7 @@
                         <td>
                             <select class=textbox id=i_lvl
                                     style="WIDTH: 180px" maxLength=50 name="cust_level.dict_id">
-                                <option value="${customer.cust_level.dict_id}">${customer.cust_level.dict_item_name}</option>
+                                <option value="${customer.cust_level.dict_id}" selected>${customer.cust_level.dict_item_name}</option>
                             </select>
                         </td>
                     </TR>
@@ -67,7 +101,7 @@
                         <td>
                             <select class=textbox id=i_src
                                     style="WIDTH: 180px" maxLength=50 name="cust_source.dict_id">
-                                <option value="${customer.cust_source.dict_id}">${customer.cust_source.dict_item_name}</option>
+                                <option value="${customer.cust_source.dict_id}" selected>${customer.cust_source.dict_item_name}</option>
                             </select>
                         </td>
                         <td>联系人：</td>
@@ -95,13 +129,13 @@
                         <td>
                             <select class=textbox id=i_industry style="WIDTH: 180px" maxLength=50
                                     name="cust_industry.dict_id">
-                                <option value="${customer.cust_level.dict_id}">${customer.cust_level.dict_item_name}</option>
+                                <option value="${customer.cust_industry.dict_id}" selected>${customer.cust_industry.dict_item_name}</option>
                             </select>
                         </td>
                         <td>创建人 ：</td>
                         <td>
                             <INPUT class=textbox id=ccreateId style=" WIDTH: 180px" maxLength=50
-                                   name="cust_create_id">
+                                   name="cust_create_id" value="${customer.cust_create_id }">
                         </td>
                     </TR>
                     <tr>

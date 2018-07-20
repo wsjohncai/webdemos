@@ -36,4 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.findByPage(pageCode,pageSize,criteria);
 	}
 
+	@Override
+	public void update(Customer customer) {
+		customerDao.update(customer);
+	}
+
 }

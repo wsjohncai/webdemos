@@ -35,7 +35,17 @@
                 })
             });
         });
-
+        
+        function del(id){
+        	var k = window.confirm('确定要删除吗？');
+        	var data = {cust_id: id};
+        	if(k){
+        		$.post('customer_delete.action', data, function(){
+        			to_page(1);
+        		});
+        	}
+        }
+        
         function to_page(page) {
             if (page) {
                 $("#page").val(page);
@@ -135,8 +145,7 @@
                                         <td>${customer.cust_mobile }</td>
                                         <td><a href="<s:url action="customer_edit">
                                             <s:param name="cust_id">${customer.cust_id}</s:param></s:url>">修改</a>
-                                            &nbsp;&nbsp; <a href="<s:url action="customer_delete">
-                                             <s:param name="cust_id">${customer.cust_id}</s:param></s:url>">删除</a>
+                                            &nbsp;&nbsp; <a onclick="del('${customer.cust_id}')">删除</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

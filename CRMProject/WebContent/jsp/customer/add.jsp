@@ -10,9 +10,30 @@
     <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
     <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
           rel=stylesheet>
-
-
     <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+    <script src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var data = {dict_type_code: '006'};
+            $.post('dict_codeForItems', data, function (res) {
+                $(res).each(function (idx, obj) {
+                    $('#clvl').append('<option value="' + obj.dict_id + '">' + obj.dict_item_name + '</option>');
+                })
+            });
+            data = {dict_type_code: '002'};
+            $.post('dict_codeForItems', data, function (res) {
+                $(res).each(function (idx, obj) {
+                    $('#csrc').append('<option value="' + obj.dict_id + '">' + obj.dict_item_name + '</option>');
+                })
+            });
+            data = {dict_type_code: '001'};
+            $.post('dict_codeForItems', data, function (res) {
+                $(res).each(function (idx, obj) {
+                    $('#cids').append('<option value="' + obj.dict_id + '">' + obj.dict_item_name + '</option>');
+                })
+            });
+        });
+    </script>
 </HEAD>
 <BODY>
 <FORM id=form1 name=form1
@@ -56,7 +77,9 @@
                         </td>
                         <td>客户级别 ：</td>
                         <td>
-                            <INPUT class=textbox id=clvl style="WIDTH: 180px" maxLength=50 name="cust_level">
+                            <select class=textbox id=clvl style="WIDTH: 180px" maxLength=50 name="cust_level.dict_id">
+                                <option value="">-- 请选择 --</option>
+                            </select>
                         </td>
                     </TR>
 
@@ -64,7 +87,9 @@
 
                         <td>信息来源 ：</td>
                         <td>
-                            <INPUT class=textbox id=csrc style="WIDTH: 180px" maxLength=50 name="cust_source">
+                            <select class=textbox id=csrc style="WIDTH: 180px" maxLength=50 name="cust_source.dict_id">
+                                <option value="">-- 请选择 --</option>
+                            </select>
                         </td>
                         <td>联系人：</td>
                         <td>
@@ -86,7 +111,9 @@
                     <TR>
                         <td>所属行业 ：</td>
                         <td>
-                            <INPUT class=textbox id=caddr style="WIDTH: 180px" maxLength=50 name="cust_industry">
+                            <select class=textbox id=cids style="WIDTH: 180px" maxLength=50 name="cust_industry.dict_id">
+                                <option value="">-- 请选择 --</option>
+                            </select>
                         </td>
                         <td>创建人 ：</td>
                         <td>

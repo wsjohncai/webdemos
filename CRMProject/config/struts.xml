@@ -20,7 +20,7 @@
 		<action name="customer_*" class="customerAction" method="{1}">
 			<result name="page">/jsp/customer/list.jsp</result>
             <result name="editPage">/jsp/customer/edit.jsp</result>
-            <result name="afterDel" type="redirectAction">customer_findByPage.action</result>
+            <result name="toPage" type="redirectAction">customer_findByPage.action</result>
 		</action>
 
 		<!-- 配置用户的模块 -->

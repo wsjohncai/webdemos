@@ -30,8 +30,8 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
     }
 
     public String add() {
-
-        return null;
+    	customerService.save(customer);
+        return "toPage";
     }
 
     //编辑操作
@@ -42,10 +42,17 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
         return "editPage";
     }
 
+    //更新操作
+    public String update() {
+    	System.out.println(customer.getCust_name());
+    	customerService.update(customer);
+    	return "toPage";
+    }
+    
     //删除
     public String delete(){
         customerService.delete(customer);
-        return "afterDel";
+        return "toPage";
     }
 
     // 属性驱动的方式
