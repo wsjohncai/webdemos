@@ -12,7 +12,7 @@
 		
 		<property name="cust_name" column="cust_name"/>
 		<property name="cust_user_id" column="cust_user_id"/>
-		<property name="cust_create_id" column="cust_create_id"/>
+		<property name="cust_file_path" column="cust_file_path"/>
 		<many-to-one name="cust_source" class="cn.crm.domain.Dict" column="cust_source"/>
 		<many-to-one name="cust_industry" class="cn.crm.domain.Dict" column="cust_industry"/>
 		<many-to-one name="cust_level" class="cn.crm.domain.Dict" column="cust_level"/>

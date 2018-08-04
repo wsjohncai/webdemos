@@ -33,12 +33,11 @@
                 })
             });
         });
+       
     </script>
 </HEAD>
 <BODY>
-<FORM id=form1 name=form1
-      action="<s:url action="customer_add"/>"
-      method=post>
+
 
 
     <TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
@@ -68,8 +67,8 @@
                     </TR>
                 </TABLE>
 
+                <FORM id=form1 name=form1 action="<s:url action="customer_add"/>" method=post enctype="multipart/form-data">
                 <TABLE cellSpacing=0 cellPadding=5 border=0>
-
                     <TR>
                         <td>客户名称：</td>
                         <td>
@@ -115,17 +114,14 @@
                                 <option value="">-- 请选择 --</option>
                             </select>
                         </td>
-                        <td>创建人 ：</td>
+                        <td>上传文件 ：</td>
                         <td>
-                            <INPUT class=textbox id=ccreateId style="WIDTH: 180px" maxLength=50 name="cust_create_id">
+                        <INPUT class=textbox id=ccreateId style="WIDTH: 180px; height: 20px" name="upload" type="file">
                         </td>
                     </TR>
-                    <tr>
-                        <td rowspan=2>
-                            <INPUT class=button id=btn type=submit value=" 保存 ">
-                        </td>
-                    </tr>
+                    <tr><td><input type="submit" style="WIDTH: 50px; height: 20px" value="提交"></td></tr>
                 </TABLE>
+                </FORM>
             </TD>
             <TD width=15 background="${pageContext.request.contextPath }/images/new_023.jpg">
                 <IMG src="${pageContext.request.contextPath }/images/new_023.jpg" border=0></TD>
@@ -144,6 +140,5 @@
         </TR>
         </TBODY>
     </TABLE>
-</FORM>
 </BODY>
 </HTML>

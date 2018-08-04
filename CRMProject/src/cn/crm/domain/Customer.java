@@ -4,7 +4,7 @@ public class Customer {
 	private String cust_id;
 	private String cust_name; 
 	private String cust_user_id; 
-	private String cust_create_id; 
+	private String cust_file_path; 
 	private Dict cust_source; 
 	private Dict cust_industry; 
 	private Dict cust_level; 
@@ -29,11 +29,11 @@ public class Customer {
 	public void setCust_user_id(String cust_user_id) {
 		this.cust_user_id = cust_user_id;
 	}
-	public String getCust_create_id() {
-		return cust_create_id;
+	public String getCust_file_path() {
+		return cust_file_path;
 	}
-	public void setCust_create_id(String cust_create_id) {
-		this.cust_create_id = cust_create_id;
+	public void setCust_file_path(String cust_file_path) {
+		this.cust_file_path = cust_file_path;
 	}
 	public Dict getCust_source() {
 		return cust_source;
@@ -74,7 +74,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [cust_id=" + cust_id + ", cust_name=" + cust_name + ", cust_user_id=" + cust_user_id
-				+ ", cust_create_id=" + cust_create_id + ", cust_source=" + cust_source + ", cust_industry="
+				+ ", cust_file_path=" + cust_file_path + ", cust_source=" + cust_source + ", cust_industry="
 				+ cust_industry + ", cust_level=" + cust_level + ", cust_linkman=" + cust_linkman + ", cust_phone="
 				+ cust_phone + ", cust_mobile=" + cust_mobile + "]";
 	}
