@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=0")
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style01.css')
+    script(src='/javascripts/jquery-3.3.1.min.js')
+    script(src='/javascripts/player.js')
+  body
+    .bg
+    .searchbox
+        form(onsubmit='return searchSong()')
+            input#s_input(type='text' name='search' placeholder='Search a song with name or id' style='color:rgba(0,0,0,0.7);')
+            input#search(type='submit' 'value'='PLAY')
+    .box-video
+        #cd(class='cd')
+            .center
+                img(src='/images/play.png' onclick='playMusic(this)')
+        .song
+            h2 title
+            .lyric 
+                p lyric
+            audio#player(loop)

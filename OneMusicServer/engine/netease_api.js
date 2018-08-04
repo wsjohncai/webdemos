@@ -14,7 +14,7 @@ function b(a, b) {
     var c = CryptoJS.enc.Utf8.parse(b), // key
         d = CryptoJS.enc.Utf8.parse("0102030405060708"), // iv
         e = CryptoJS.enc.Utf8.parse(a), // data
-        f = CryptoJS.AES.encrypt(e, c, {iv: d, mode: CryptoJS.mode.CBC});
+        f = CryptoJS.AES.encrypt(e, c, { iv: d, mode: CryptoJS.mode.CBC });
     return f.toString();
 }
 
@@ -270,7 +270,7 @@ function biDivideModulo(a, b) {
         e = b.isNeg;
     if (d > c) return a.isNeg ? (f = biCopy(bigOne), f.isNeg = !b.isNeg, a.isNeg = !1, b.isNeg = !1, g = biSubtract(b, a), a.isNeg = !0, b.isNeg = e) : (f = new BigInt, g = biCopy(a)), [f, g];
     for (f = new BigInt, g = a, h = Math.ceil(d / bitsPerDigit) - 1, i = 0; b.digits[h] < biHalfRadix;) b = biShiftLeft(b, 1), ++i, ++d, h = Math.ceil(d / bitsPerDigit) - 1;
-    for (g = biShiftLeft(g, i), c += i, j = Math.ceil(c / bitsPerDigit) - 1, k = biMultiplyByRadixPower(b, j - h); -1 != biCompare(g, k);) ++f.digits[j - h], g = biSubtract(g, k);
+    for (g = biShiftLeft(g, i), c += i, j = Math.ceil(c / bitsPerDigit) - 1, k = biMultiplyByRadixPower(b, j - h); - 1 != biCompare(g, k);) ++f.digits[j - h], g = biSubtract(g, k);
     for (l = j; l > h; --l) {
         for (m = l >= g.digits.length ? 0 : g.digits[l], n = l - 1 >= g.digits.length ? 0 : g.digits[l - 1], o = l - 2 >= g.digits.length ? 0 : g.digits[l - 2], p = h >= b.digits.length ? 0 : b.digits[h], q = h - 1 >= b.digits.length ? 0 : b.digits[h - 1], f.digits[l - h - 1] = m == p ? maxDigitVal : Math.floor((m * biRadix + n) / p), r = f.digits[l - h - 1] * (p * biRadix + q), s = m * biRadixSquared + (n * biRadix + o); r > s;) --f.digits[l - h - 1], r = f.digits[l - h - 1] * (p * biRadix | q), s = m * biRadix * biRadix + (n * biRadix + o);
         k = biMultiplyByRadixPower(b, l - h - 1), g = biSubtract(g, biMultiplyDigit(k, f.digits[l - h - 1])), g.isNeg && (g = biAdd(g, k), --f.digits[l - h - 1])
@@ -291,7 +291,7 @@ function biMultiplyMod(a, b, c) {
 }
 
 function biPow(a, b) {
-    for (var c = bigOne, d = a; ;) {
+    for (var c = bigOne, d = a;;) {
         if (0 != (1 & b) && (c = biMultiply(c, d)), b >>= 1, 0 == b) break;
         d = biMultiply(d, d)
     }
@@ -299,7 +299,7 @@ function biPow(a, b) {
 }
 
 function biPowMod(a, b, c) {
-    for (var d = bigOne, e = a, f = b; ;) {
+    for (var d = bigOne, e = a, f = b;;) {
         if (0 != (1 & f.digits[0]) && (d = biMultiplyMod(d, e, c)), f = biShiftRight(f, 1), 0 == f.digits[0] && 0 == biHighIndex(f)) break;
         e = biMultiplyMod(e, e, c)
     }
@@ -331,84 +331,118 @@ function BarrettMu_multiplyMod(a, b) {
 
 function BarrettMu_powMod(a, b) {
     var d, e, c = new BigInt;
-    for (c.digits[0] = 1, d = a, e = b; ;) {
+    for (c.digits[0] = 1, d = a, e = b;;) {
         if (0 != (1 & e.digits[0]) && (c = this.multiplyMod(c, d)), e = biShiftRight(e, 1), 0 == e.digits[0] && 0 == biHighIndex(e)) break;
         d = this.multiplyMod(d, d)
     }
     return c
 }
 
-var _searchKey = '';
-var _offset = 8;
-var _limit = 8;
 var _path = '';
 var param0 = '{}';
 var param1 = '010001';
 var param2 = '00e0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b3ece0462db0a22b8e7';
 var param3 = '0CoJUm6Qyw8W8jud';
 
-function init(type) {
+function init(query) {
     var param;
-    if (type === 1) {
-        // 搜索歌曲时使用的参数
-        param = {
-            "hlpretag": "<span class=\"s-fc7\">",
-            "hlposttag": "</span>",
-            "s": _searchKey,
-            "type": "1",
-            "offset": _offset,
-            "total": "true",
-            "limit": _limit,
-            "csrf_token": "680489892842905b270c1b1fe6d9b257"
-        };
-        _path = '/weapi/cloudsearch/get/web?csrf_token=';
-    } else {  // 搜索建议时使用的参数
-        param = {"s": _searchKey, "limit": _limit, "csrf_token": "680489892842905b270c1b1fe6d9b257"};
-        _path = '/weapi/search/suggest/web?csrf_token=';
+    switch (query.type) {
+        case 0:
+            // 搜索歌曲时使用的参数
+            param = {
+                "hlpretag": "<span class=\"s-fc7\">",
+                "hlposttag": "</span>",
+                "s": query.keyword,
+                "type": "1",
+                "offset": query.offset,
+                "total": "true",
+                "limit": query.limit,
+                "csrf_token": ""
+            };
+            _path = '/weapi/cloudsearch/get/web?csrf_token=';
+            break;
+        case 1:
+            //歌曲详情信息
+            param = {
+                "id": query.songid,
+                "c": "[{'id':'" + query.songid + "'}]",
+                "csrf_token": ""
+            };
+            _path = '/weapi/v3/song/detail?csrf_token=';
+            break;
+        case 2:
+            //歌曲地址
+            param = {
+                "ids": "[" + query.songid + "]",
+                "br": query.songbr,
+                "csrf_token": ""
+            };
+            _path = '/weapi/song/enhance/player/url?csrf_token=';
+            break;
+        case 3:
+            //获取歌词
+            param = {
+                "id": query.songid,
+                "lv": -1,
+                "tv": -1,
+                "csrf_token": ""
+            };
+            _path = '/weapi/song/lyric?csrf_token=';
+            break;
+        case 4:
+            //获取评论
+            param = {
+                "rid": "R_SO_4_" + query.songid,
+                "offset": query.offset,
+                "total": "true",
+                "limit": query.limit,
+                "csrf_token": ""
+            };
+            _path = '/weapi/v1/resource/comments/R_SO_4_' + query.songid + '?csrf_token=';
+            break;
+        default: // 搜索建议时使用的参数
+            param = { "s": query.keyword, "limit": query.limit, "csrf_token": "680489892842905b270c1b1fe6d9b257" };
+            _path = '/weapi/search/suggest/web?csrf_token=';
+            break;
     }
     param0 = JSON.stringify(param);
 }
 
-function tool(keyword, type, limit, offset) {
-    _searchKey = keyword;
-    _offset = offset ? offset : 0;
-    _limit = limit ? limit : 30;
-    init(type);
-    var data = d(param0, param1, param2, param3);
-    return {data: querystring.stringify(data), host: 'music.163.com', path: _path};
+module.exports = function(opts, result) {
+    init(opts);
+    // console.log('Param: '+param0.toString()+'Path: '+_path);
+
+    var h = d(param0, param1, param2, param3);
+
+    var contents = querystring.stringify({
+        params: h.encText,
+        encSecKey: h.encSecKey
+    });
+    // console.log('Body:'+contents);
+
+    var options = {
+        host: 'music.163.com',
+        path: _path,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': contents.length
+        }
+    };
+
+    var req = http.request(options, function(res) {
+        res.setEncoding('utf8');
+        var alldata = '';
+        res.on('data', function(data) {
+            alldata += data;
+        }).on('end', function() {
+            // console.log(alldata);
+            result(JSON.parse(alldata));
+        });
+    });
+    req.on('error', function(err){
+        result({status: 'error'});
+    });
+    req.write(contents);
+    req.end;
 };
-
-module.exports = function(opts, result){
-	tool(opts.key, opts.type, opts.limit, opts.offset);
-
-	var h = d(param0, param1, param2, param3);
-
-	var contents = querystring.stringify({
-	    params: h.encText,
-	    encSecKey: h.encSecKey
-	});
-
-	var options = {
-	    host: 'music.163.com',
-	    path: _path,
-	    method: 'POST',
-	    headers: {
-	        'Content-Type': 'application/x-www-form-urlencoded',
-	        'Content-Length': contents.length
-	    }
-	};
-
-	var req = http.request(options, function (res) {
-	    res.setEncoding('utf8');
-		var alldata = '';
-	    res.on('data', function (data) {
-	        alldata += data; 
-	    }).on('end', function(){
-	        result(alldata);
-	    });
-	});
-
-	req.write(contents);
-	req.end;
-};
-

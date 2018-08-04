@@ -1,0 +1,164 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+
+/*清除浏览器默认样式*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    min-width: 950px;
+    position: absolute;
+}
+
+/*背景设置*/
+.bg{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background: url("/images/background.jpg") no-repeat fixed center;
+    opacity: 0.8;
+    /* 兼容Webkit内核浏览器如Chrome和Safari */
+    -webkit-background-size: cover;
+    /* 兼容Opera */
+    -o-background-size: cover;
+}
+
+/*整体控制音乐播放界面*/
+
+#box-video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+.searchbox{
+    width: 40%;
+    height: 40px;
+    position: absolute;
+    float: left;
+    left: 30%;
+    top: 5%;
+    box-shadow: 1px 1px 8px 0px;
+}
+
+form{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#s_input{
+    width: 80%;
+    height: 80%;
+    color: rgba(0,0,0,0.7);
+    background: rgb(255,255,255);
+    font-size: 20px;
+    margin: 1px 1px;
+    vertical-align: middle;
+    position: relative;
+}
+
+#search{
+    width: 18%;
+    height: 85%;
+    margin: 1px 1px 1px 0;
+    border: none;
+    vertical-align: middle;
+    position: relative;
+    background: rgb(169, 169, 169);
+    text-shadow: 1px 1px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Comic Sans MS, sans-serif;
+}
+
+#search:hover{
+    background: rgb(200,200,200);
+}
+
+/*唱片部分*/
+
+.cd {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    z-index: 2;
+    border-radius: 50%;
+    border: 10px solid rgba(255,255,255,0.5);
+    box-shadow: 5px 5px 15px #000;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.center {
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    z-index: 3;
+    border: 5px solid rgba(255,255,255,1);
+    background: #000 url(/images/yinfu.gif) no-repeat center center;
+}
+
+.center img{
+    width: 80%;
+    margin: 10%;
+    opacity: 0.5;
+}
+
+/*歌词部分*/
+
+.song {
+    width: 40%;
+    height: 60%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+}
+
+@font-face {
+    font-family: MD;
+    src: url(/font/MD.ttf);
+}
+
+h2 {
+    height: 20%;
+    font-family: MD;
+    font-size: 2.5em;
+    color: #81342a;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.lyric {
+    width: 100%;
+    height: 80%;
+    padding-left: 30px;
+    margin-top: 20px;
+    overflow: auto;
+    box-shadow: 1px 1px 2px 0px;
+    border: 1px rgba(255, 255, 255, 0.5);
+    border-radius: 10%;
+    box-sizing: border-box;
+}
+
+.lyric p{
+    width: 100%;
+    height: 40px;
+    font-family: "微软雅黑";
+    line-height: 30px;
+    text-align: center;
+}
