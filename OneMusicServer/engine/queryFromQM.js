@@ -12,7 +12,13 @@ exports.search = function(query, cb) {
     opt.pnum = query.limit ? query.limit : 10;
     opt.type == 0 ? opt.hasBraket = 'true' : opt;
 
-    api(opt, function(data) { cb(data); });
+    api(opt, function(data) {
+        let rs = {};
+        rs.songs = data.data.song.list;
+        rs.total = data.data.song.totalnum;
+        rs.code = data.code;
+        cb(rs);
+    });
 }
 
 exports.query = function(url, query, cb) {
@@ -22,23 +28,32 @@ exports.query = function(url, query, cb) {
         else query.type = 3;
         query.hasBraket = 'true';
         api(query, function(data) {
-            if (url.indexOf('lyric') !== -1) {
-                let buf = new Buffer(data.lyric, 'base64');
-                data.lyric = buf.toString();
-                if (data.trans && data.trans.length !== 0) {
-                    buf = new Buffer(data.trans, 'base64');
-                    data.trans = buf.toString();
+            let rs = {};
+            if (query.type === 3) {
+                if (data.code === 0) {
+                    let buf = new Buffer(data.lyric, 'base64');
+                    data.lyric = buf.toString();
+                    if (data.trans && data.trans.length !== 0) {
+                        buf = new Buffer(data.trans, 'base64');
+                        data.trans = buf.toString();
+                    }
                 }
+                rs.code = data.code;
+                rs.lyric = data.lyric ? data.lyric : null;
+                rs.tlrc = data.trans ? data.trans : null;
+            } else {
+                rs.code = data.code;
+                rs.song = data.data[0];
             }
-            cb(data);
+            cb(rs);
         });
     } else if (query.songmid && query.media_mid && url.indexOf('url') != -1) {
         query.type = 2;
         api(query, function(data) {
             let item = data.data.items[0];
             let ud = {
-                url: 'http://dl.stream.qqmusic.qq.com/'+item.filename +
-                '?vkey='+item.vkey+'&guid='+data.guid,
+                url: 'http://dl.stream.qqmusic.qq.com/' + item.filename +
+                    '?vkey=' + item.vkey + '&guid=' + data.guid,
                 cid: data.cid,
                 userip: data.userip,
                 songmid: item.songmid
@@ -52,7 +67,14 @@ exports.query = function(url, query, cb) {
             pnum: query.limit ? query.limit : 20,
             type: 4
         };
-        api(opt, function(data) { cb(data); });
+        api(opt, function(data) {
+            let rs = {};
+            rs.hots = data.hot_comment?data.hot_comment.commentlist:null;
+            rs.hotsTotal = data.hot_comment?data.hot_comment.commenttotal:0;
+            rs.comments = data.comment.commentlist;
+            rs.total = data.comment.commenttotal;
+            cb(rs);
+        });
     } else
         cb({ status: 'fail' });
 }

@@ -408,7 +408,7 @@ function init(query) {
     param0 = JSON.stringify(param);
 }
 
-module.exports = function(opts, result) {
+function test(opts, result) {
     init(opts);
     // console.log('Param: '+param0.toString()+'Path: '+_path);
 
@@ -418,11 +418,7 @@ module.exports = function(opts, result) {
         params: h.encText,
         encSecKey: h.encSecKey
     });
-    // console.log('Body:'+contents);
-    //my cookie(vip):
-    let cookie = '_iuqxldmzr_=32; _ntes_nnid=daf5414823fa739f339f593808b3a5b7,1533666302819; _ntes_nuid=daf5414823fa739f339f593808b3a5b7; __utmz=94650624.1533666306.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); WM_TID=otyCX42N50Daq6C%2F5uVJxKxYNDsK2G27; JSESSIONID-WYYY=cWnS2FVg9S%2FuVmzUFPXcb28QI2enFvkF1dl0D%2BqMwpqpcPV%5Cn%2BXGNeBvYe8PW8cvgWFDDbNqAQfFFT%2Bh7UaHygcADMChGnCNdtucjVUviyB17DnSk%2FZ24dC9NnMyGShs5pjeQ1i3ZYm3jI83Im9uKorBgCvJlc03h%2BJ0iDCe0Yd7qnnG%3A1533671399767; __utma=94650624.340158771.1533666306.1533666306.1533669606.2; __utmc=94650624; WM_NI=vkIZAzQghZxEuDZ851AE1r8U9KFRUYQ%2Fel4EsQs1tDQF4PgLvUxpsQcaYI9L1Fj6AfBVZzWMU3JR6BehapVlZFJMRYhoMzk2jIQvnRArvszHzCv%2BxB%2FUcdXK%2F1hfadL8TFU%3D; WM_NIKE=9ca17ae2e6ffcda170e2e6eeb8f734ad8bacd2f059a19ffaacf744b19cb8afcd668a97fb92e16b8e8fa3a9f92af0fea7c3b92ab6b587bbc47293b9a8bbfb4fb79c96d9b83b839bff93bb5ffb958ab3d85393f1ab8db74fb18fbdd2f750939afcb1e648b68bb891f25ba1bf97aabc48f39aa6d7c46e828a969bd64797ed86b3b54aa7b8af91d5689a9a86aed153acb1839bea3aaa979f97ed5a83aeba94f944ba9dbaccfb4aed8bad85db41edefa887e47090e89ca7d837e2a3; __remember_me=true; MUSIC_U=162e87237c715637ae3e9cd7781ebb6be9bf93f4620088401e0a4401b8f97034483d207b25e4909550f906b9877be4e741049cea1c6bb9b6; __csrf=2edd25b231e44dd6807e9f9dda4ad5e6; __utmb=94650624.8.10.1533669606'
-    //normal cookie:
-    let cookie_n = '_iuqxldmzr_=32; _ntes_nnid=3e493da01641938d4013ea4106663034,1533654380690; _ntes_nuid=3e493da01641938d4013ea4106663034; __utma=94650624.1531145861.1533654385.1533654385.1533654385.1; __utmz=94650624.1533654385.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); WM_NI=CHpv8huSfnn%2FIcW8LCgAuZwsABoLIbBGPvh8bOJGZbRHj0aXI28QedpjKujYWPrWKmZYqt45eefqD%2BgD477ps9wpzFNdOrrR1egHmaeqA30YOxv0y%2B%2BOYptgtFLwn8COVzY%3D; WM_NIKE=9ca17ae2e6ffcda170e2e6ee88c580a2ea87a9ae70918e9eb2ef7ff698b6b3c73ef8999a87b845a19baed2bc2af0fea7c3b92a8198c097bb64b78daa8fed258bbd99d9cf49a59fbbbbf679839ea1adcc6a8299a097eb34a29186a8d96a9298a6d1e4548beef8b2e870b4b68596e9539590beb8ca679a87bf95b73fa7bbaa92c721a59cfcd8b67cb1e7b991f94e8ebc8193f15af3bba9a9f06ba7af8fd4b3538da8bad1fc21e9919791f76db89a8498ed3481919a9bdc37e2a3; WM_TID=tmk8K08hxN88VoNuuIRBMb5vPBoROniM; __utmc=94650624; playerid=97654133; __utmb=94650624.16.10.1533654385; JSESSIONID-WYYY=KdDsXvCUEuKEnK73aUBgAvamJiT%2B%2B%5CbP3%2F87CxsU8SMmIU%2BGeqcy1Orh7wAKp8Y5AlFPOGUIkuM9kWQt3nHinIuE4vlT%2FhBGol2krWs64hNCM98G%5CmlixsMASazh9uX0CMW4PSUo5XcBchmS%5CKp%5Cd7P%2Bf8lw%2BMPRNIp6dmwjAzSK7Fux%3A1533657920723'
+    console.log('Body:'+contents);
 
     var options = {
         host: 'music.163.com',
@@ -431,7 +427,7 @@ module.exports = function(opts, result) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Content-Length': contents.length,
-            'Cookie': cookie
+            'Cookie': '_iuqxldmzr_=32; _ntes_nnid=daf5414823fa739f339f593808b3a5b7,1533666302819; _ntes_nuid=daf5414823fa739f339f593808b3a5b7; __utmz=94650624.1533666306.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); WM_TID=otyCX42N50Daq6C%2F5uVJxKxYNDsK2G27; JSESSIONID-WYYY=cWnS2FVg9S%2FuVmzUFPXcb28QI2enFvkF1dl0D%2BqMwpqpcPV%5Cn%2BXGNeBvYe8PW8cvgWFDDbNqAQfFFT%2Bh7UaHygcADMChGnCNdtucjVUviyB17DnSk%2FZ24dC9NnMyGShs5pjeQ1i3ZYm3jI83Im9uKorBgCvJlc03h%2BJ0iDCe0Yd7qnnG%3A1533671399767; __utma=94650624.340158771.1533666306.1533666306.1533669606.2; __utmc=94650624; WM_NI=vkIZAzQghZxEuDZ851AE1r8U9KFRUYQ%2Fel4EsQs1tDQF4PgLvUxpsQcaYI9L1Fj6AfBVZzWMU3JR6BehapVlZFJMRYhoMzk2jIQvnRArvszHzCv%2BxB%2FUcdXK%2F1hfadL8TFU%3D; WM_NIKE=9ca17ae2e6ffcda170e2e6eeb8f734ad8bacd2f059a19ffaacf744b19cb8afcd668a97fb92e16b8e8fa3a9f92af0fea7c3b92ab6b587bbc47293b9a8bbfb4fb79c96d9b83b839bff93bb5ffb958ab3d85393f1ab8db74fb18fbdd2f750939afcb1e648b68bb891f25ba1bf97aabc48f39aa6d7c46e828a969bd64797ed86b3b54aa7b8af91d5689a9a86aed153acb1839bea3aaa979f97ed5a83aeba94f944ba9dbaccfb4aed8bad85db41edefa887e47090e89ca7d837e2a3; __remember_me=true; MUSIC_U=162e87237c715637ae3e9cd7781ebb6be9bf93f4620088401e0a4401b8f97034483d207b25e4909550f906b9877be4e741049cea1c6bb9b6; __csrf=2edd25b231e44dd6807e9f9dda4ad5e6; __utmb=94650624.8.10.1533669606'
         }
     };
 
@@ -451,3 +447,20 @@ module.exports = function(opts, result) {
     req.write(contents);
     req.end;
 };
+
+let op0 = {
+    keyword: "too good",
+    limit: 8,
+    offset: 0,
+    type: 0
+}
+
+let op2 = {
+    songid: 139385,
+    songbr: 320000,
+    type: 2
+}
+
+test(op0,function(data){
+    console.log(data);
+})

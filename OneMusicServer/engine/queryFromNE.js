@@ -1,6 +1,6 @@
 let neteaseTool = require('./netease_api');
 
-exports.search = function(query, cb){
+exports.search = function(query, cb) {
     if (!query.keyword) {
         cb({ status: 'fail' });
         return;
@@ -12,7 +12,11 @@ exports.search = function(query, cb){
         'limit': query.limit ? query.limit.toString() : '10'
     };
     neteaseTool(opt, function(data) {
-        cb(data);
+        let rs = {};
+        rs.songs = data.result.songs?data.result.songs:[];
+        rs.total = data.result.songCount;
+        rs.code = data.code;
+        cb(rs);
     });
 }
 
@@ -37,9 +41,26 @@ exports.query = function(url, query, cb) {
                 songid: query.songid,
                 type: url.indexOf('detail') !== -1 ? 1 : url.indexOf('lyric') !== -1 ? 3 : -1
             };
-        console.log(opt);
         neteaseTool(opt, function(data) {
-            cb(data);
+            let rs = {}
+            if (opt.type === 2) {
+                rs.url = data.data[0].url;
+                rs.code = data.code;
+            } else if (opt.type === 4) {
+                rs.hots = data.hotComments ? data.hotComments : null;
+                rs.comments = data.comments;
+                rs.code = data.code;
+                rs.total = data.total;
+            } else if (opt.type === 1){
+                rs.song = data.songs[0];
+                rs.code = data.code;
+                rs.privilege = data.privileges[0];
+            } else if(opt.type === 3){
+                rs.code = data.code;
+                rs.lyric = data.lrc.lyric;
+                rs.tlrc = data.tlyric.lyric;
+            }
+            cb(rs);
         });
         return;
     }

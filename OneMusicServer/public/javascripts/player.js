@@ -7,7 +7,7 @@ function searchSong() {
         // let obj = JSON.parse(data);
         data = d.ne.data;
         if (data.code === 200) {
-            let song = data.result.songs[0];
+            let song = data.songs[0];
             let name = song.name;
             id = song.id;
             if (isPlaying) {
@@ -51,10 +51,10 @@ function stopPlaying() {
 }
 
 function getUrl(id) {
-    $.get('/music/url?src=ne&songid=' + id, function(d) {
+    $.get('/music/url?src=ne&songbr=999000&songid=' + id, function(d) {
         let data = d.data;
         if (data.code === 200) {
-            let url = data.data[0].url;
+            let url = data.url;
             $('#player').attr('src', url);
             startPlaying();
         }
@@ -65,8 +65,8 @@ function getLyric(id) {
     $.get('/music/lyric?src=ne&songid=' + id, function(d) {
         let data = d.data;
         if (data.code === 200 && !data.nolyric) {
-            let lyric = data.lrc.lyric.split('\n');
-            let tran = data.tlyric.lyric ? data.tlyric.lyric.split('\n') : '';
+            let lyric = data.lyric.split('\n');
+            let tran = data.tlrc ? data.tlrc.split('\n') : '';
             let lyricP = $('.lyric');
             lyricP.empty();
             let tranc = '',
@@ -83,6 +83,9 @@ function getLyric(id) {
             for (var i = 0; i < lyric.length; i++) {
                 //获取当前的原歌词句子
                 let ridx = lyric[i].indexOf(']');
+                while(ridx === lyric[i].length-1)
+                    i++;
+                ridx = lyric[i].indexOf(']');
                 let otime = lyric[i].substring(1, ridx);
                 let p = $('<p></p>').html(lyric[i].substr(ridx + 1));
                 lyricP.append(p);
