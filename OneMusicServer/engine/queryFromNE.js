@@ -5,16 +5,19 @@ exports.search = function(query, cb) {
         cb({ status: 'fail' });
         return;
     }
+    let lim = query.limit ? query.limit : 10
+    let off = query.offset ? query.offset * lim : 0
     let opt = {
         'keyword': query.keyword,
         'type': query.type ? query.type : 0,
-        'offset': query.offset ? query.offset.toString() : '0',
-        'limit': query.limit ? query.limit.toString() : '10'
+        'offset': off.toString(),
+        'limit': lim.toString()
     };
     neteaseTool(opt, function(data) {
         let rs = {};
-        rs.songs = data.result.songs?data.result.songs:[];
-        rs.total = data.result.songCount;
+        // console.log(data)
+        rs.songs = data.result ? (data.result.songs ? data.result.songs : []) : [];
+        rs.total = data.result ? (data.result.songCount) : 0
         rs.code = data.code;
         cb(rs);
     });
@@ -29,13 +32,16 @@ exports.query = function(url, query, cb) {
                 songbr: query.songbr ? query.songbr : 128000,
                 type: 2
             };
-        else if (url.indexOf('comment') !== -1)
+        else if (url.indexOf('comment') !== -1){
+            let lim = query.limit ? query.limit : 20
+            let off = query.offset ? query.offset * lim : 0
             opt = {
                 songid: query.songid,
-                offset: query.offset ? query.offset.toString() : 0,
-                limit: query.limit ? query.limit.toString() : 20,
+                offset: off,
+                limit: lim,
                 type: 4
             };
+        }
         else
             opt = {
                 songid: query.songid,
@@ -51,14 +57,20 @@ exports.query = function(url, query, cb) {
                 rs.comments = data.comments;
                 rs.code = data.code;
                 rs.total = data.total;
-            } else if (opt.type === 1){
+            } else if (opt.type === 1) {
                 rs.song = data.songs[0];
                 rs.code = data.code;
                 rs.privilege = data.privileges[0];
-            } else if(opt.type === 3){
+            } else if (opt.type === 3) {
                 rs.code = data.code;
-                rs.lyric = data.lrc.lyric;
-                rs.tlrc = data.tlyric.lyric;
+                // console.log(data.uncollected);
+                if (data.nolyric && data.nolyric === true || data.uncollected) {
+                    rs.lyric = null
+                    rs.tlrc = null
+                } else {
+                    rs.lyric = data.lrc? data.lrc.lyric ? data.lrc.lyric : null : null;
+                    rs.tlrc = data.tlyric.lyric ? data.tlyric.lyric : null;
+                }
             }
             cb(rs);
         });

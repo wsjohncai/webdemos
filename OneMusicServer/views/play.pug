@@ -11,14 +11,21 @@ html
     .bg
     .searchbox
         form(onsubmit='return searchSong()')
-            input#s_input(type='text' name='search' placeholder='Search a song with name or id' style='color:rgba(0,0,0,0.7);')
+            .search_box
+                input#s_input(type='text' name='search' placeholder='Search a song with name or id' 
+                                style='color:rgba(0,0,0,0.7);' autocomplete='off')
+                ul#s_hint
             input#search(type='submit' 'value'='PLAY')
     .box-video
         #cd(class='cd')
+            #cd_bg
             .center
+                .center_bg
                 img(src='/images/play.png' onclick='playMusic(this)')
         .song
-            h2 title
+            a#stitle(title='右键另存为') title
             .lyric 
-                p lyric
+                #lyric_scroller
+                #lyric_container
+                    p lyric
             audio#player(loop)

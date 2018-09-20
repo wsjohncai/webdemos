@@ -8,14 +8,15 @@ exports.search = function(query, cb) {
     }
     opt.keyword = query.keyword;
     opt.type = query.type === 'undefined' ? 0 : query.type == 0 || query.type == 5 ? query.type : 0;
-    opt.page = query.offset ? query.offset : 0;
+    opt.page = query.offset ? query.offset + 1 : 1;
     opt.pnum = query.limit ? query.limit : 10;
     opt.type == 0 ? opt.hasBraket = 'true' : opt;
 
     api(opt, function(data) {
         let rs = {};
-        rs.songs = data.data.song.list;
-        rs.total = data.data.song.totalnum;
+        // console.log(data);
+        rs.songs = data.data ? (data.data.song ? data.data.song.list : []) : [];
+        rs.total = data.data ? (data.data.song ? data.data.song.totalnum : 0) : 0;
         rs.code = data.code;
         cb(rs);
     });
@@ -30,7 +31,7 @@ exports.query = function(url, query, cb) {
         api(query, function(data) {
             let rs = {};
             if (query.type === 3) {
-                if (data.code === 0) {
+                if (data.code === 0 && data.lyric !== null) {
                     let buf = new Buffer(data.lyric, 'base64');
                     data.lyric = buf.toString();
                     if (data.trans && data.trans.length !== 0) {
@@ -53,7 +54,7 @@ exports.query = function(url, query, cb) {
             let item = data.data.items[0];
             let ud = {
                 url: 'http://dl.stream.qqmusic.qq.com/' + item.filename +
-                    '?vkey=' + item.vkey + '&guid=' + data.guid,
+                    '?vkey=' + item.vkey + '&guid=' + data.guid + '&fromtag=66',
                 cid: data.cid,
                 userip: data.userip,
                 songmid: item.songmid
@@ -69,8 +70,8 @@ exports.query = function(url, query, cb) {
         };
         api(opt, function(data) {
             let rs = {};
-            rs.hots = data.hot_comment?data.hot_comment.commentlist:null;
-            rs.hotsTotal = data.hot_comment?data.hot_comment.commenttotal:0;
+            rs.hots = data.hot_comment ? data.hot_comment.commentlist : null;
+            rs.hotsTotal = data.hot_comment ? data.hot_comment.commenttotal : 0;
             rs.comments = data.comment.commentlist;
             rs.total = data.comment.commenttotal;
             cb(rs);

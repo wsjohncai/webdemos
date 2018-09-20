@@ -35,7 +35,7 @@ module.exports = function(query, handler) {
             qs.cid = '205361747';
             qs.songmid = query.songmid;
             qs.filename = 'C400' + query.media_mid + '.m4a';
-            qs.guid = 3057399792;
+            qs.guid = 1707943335;
             break;
         case 3: //获取歌词
             path = '/lyric/fcgi-bin/fcg_query_lyric_new.fcg';
