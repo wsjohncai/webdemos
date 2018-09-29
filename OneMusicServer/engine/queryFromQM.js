@@ -3,7 +3,7 @@ let api = require('./qqmusic_api');
 exports.search = function(query, cb) {
     let opt = {};
     if (!query.keyword) {
-        cb({ status: 'fail' });
+        cb({ status: 'error' });
         return;
     }
     opt.keyword = query.keyword;
@@ -13,6 +13,10 @@ exports.search = function(query, cb) {
     opt.type == 0 ? opt.hasBraket = 'true' : opt;
 
     api(opt, function(data) {
+        if(data.status && data.status==='error'){
+            cb({status: 'error'});
+            return;
+        }
         let rs = {};
         // console.log(data);
         rs.songs = data.data ? (data.data.song ? data.data.song.list : []) : [];
@@ -29,6 +33,10 @@ exports.query = function(url, query, cb) {
         else query.type = 3;
         query.hasBraket = 'true';
         api(query, function(data) {
+            if(data.status && data.status==='error'){
+                cb({status: 'error'});
+                return;
+            }
             let rs = {};
             if (query.type === 3) {
                 if (data.code === 0 && data.lyric !== null) {
@@ -51,6 +59,10 @@ exports.query = function(url, query, cb) {
     } else if (query.songmid && query.media_mid && url.indexOf('url') != -1) {
         query.type = 2;
         api(query, function(data) {
+            if(data.status && data.status==='error'){
+                cb({status: 'error'});
+                return;
+            }
             let item = data.data.items[0];
             let ud = {
                 url: 'http://dl.stream.qqmusic.qq.com/' + item.filename +
@@ -69,6 +81,10 @@ exports.query = function(url, query, cb) {
             type: 4
         };
         api(opt, function(data) {
+            if(data.status && data.status==='error'){
+                cb({status: 'error'});
+                return;
+            }
             let rs = {};
             rs.hots = data.hot_comment ? data.hot_comment.commentlist : null;
             rs.hotsTotal = data.hot_comment ? data.hot_comment.commenttotal : 0;
@@ -77,5 +93,5 @@ exports.query = function(url, query, cb) {
             cb(rs);
         });
     } else
-        cb({ status: 'fail' });
+        cb({ status: 'error' });
 }

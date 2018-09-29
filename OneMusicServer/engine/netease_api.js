@@ -437,6 +437,10 @@ module.exports = function(opts, result) {
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
+        if(res.statusCode != 200){
+            result({status: 'error'});
+            return;
+        }
         var alldata = '';
         res.on('data', function(data) {
             alldata += data;

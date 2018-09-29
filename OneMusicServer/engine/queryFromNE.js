@@ -2,7 +2,7 @@ let neteaseTool = require('./netease_api');
 
 exports.search = function(query, cb) {
     if (!query.keyword) {
-        cb({ status: 'fail' });
+        cb({ status: 'error' });
         return;
     }
     let lim = query.limit ? query.limit : 10
@@ -14,6 +14,10 @@ exports.search = function(query, cb) {
         'limit': lim.toString()
     };
     neteaseTool(opt, function(data) {
+        if (data.status && data.status === 'error') {
+            cb({ status: 'error' });
+            return;
+        }
         let rs = {};
         // console.log(data)
         rs.songs = data.result ? (data.result.songs ? data.result.songs : []) : [];
@@ -32,7 +36,7 @@ exports.query = function(url, query, cb) {
                 songbr: query.songbr ? query.songbr : 128000,
                 type: 2
             };
-        else if (url.indexOf('comment') !== -1){
+        else if (url.indexOf('comment') !== -1) {
             let lim = query.limit ? query.limit : 20
             let off = query.offset ? query.offset * lim : 0
             opt = {
@@ -41,20 +45,23 @@ exports.query = function(url, query, cb) {
                 limit: lim,
                 type: 4
             };
-        }
-        else
+        } else
             opt = {
                 songid: query.songid,
                 type: url.indexOf('detail') !== -1 ? 1 : url.indexOf('lyric') !== -1 ? 3 : -1
             };
         neteaseTool(opt, function(data) {
+            if (data.status && data.status === 'error') {
+                cb({ status: 'error' });
+                return;
+            }
             let rs = {}
             if (opt.type === 2) {
                 rs.url = data.data[0].url;
                 rs.code = data.code;
             } else if (opt.type === 4) {
                 rs.hots = data.hotComments ? data.hotComments : null;
-                rs.comments = data.comments;
+                rs.comments = data.comments ? data.comments : null;
                 rs.code = data.code;
                 rs.total = data.total;
             } else if (opt.type === 1) {
@@ -68,7 +75,7 @@ exports.query = function(url, query, cb) {
                     rs.lyric = null
                     rs.tlrc = null
                 } else {
-                    rs.lyric = data.lrc? data.lrc.lyric ? data.lrc.lyric : null : null;
+                    rs.lyric = data.lrc ? data.lrc.lyric ? data.lrc.lyric : null : null;
                     rs.tlrc = data.tlyric.lyric ? data.tlyric.lyric : null;
                 }
             }
@@ -76,5 +83,5 @@ exports.query = function(url, query, cb) {
         });
         return;
     }
-    cb({ status: 'fail' });
+    cb({ status: 'error' });
 };

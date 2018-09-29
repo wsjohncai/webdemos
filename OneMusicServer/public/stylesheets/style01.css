@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 /* CSS Document */
 
 
@@ -10,22 +11,25 @@
     padding: 0;
 }
 
-body{
+body {
     width: 100%;
     height: 100%;
     min-width: 950px;
     position: absolute;
 }
 
+
 /*背景设置*/
-.bg{
+
+.bg {
     width: 100%;
     height: 100%;
     position: fixed;
     background: url(/images/background.jpg) no-repeat fixed center;
-    transform: scale(3,3);
+    transform: scale(3, 3);
     filter: blur(15px);
 }
+
 
 /*整体控制音乐播放界面*/
 
@@ -36,7 +40,7 @@ body{
     overflow: hidden;
 }
 
-.searchbox{
+.searchbox {
     width: 40%;
     height: 40px;
     position: absolute;
@@ -46,13 +50,13 @@ body{
     box-shadow: 1px 1px 8px 0px;
 }
 
-form{
+form {
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.search_box{
+.search_box {
     width: 80%;
     height: 85%;
     position: relative;
@@ -60,17 +64,17 @@ form{
     margin: 1px 1px;
 }
 
-#s_input{
+#s_input {
     width: 100%;
     height: 100%;
-    color: rgba(0,0,0,0.7);
-    background: rgb(255,255,255);
+    color: rgba(0, 0, 0, 0.7);
+    background: rgb(255, 255, 255);
     font-size: 20px;
     vertical-align: middle;
     position: relative;
 }
 
-#s_hint{
+#s_hint {
     width: 100%;
     float: left;
     margin: 1px;
@@ -78,11 +82,11 @@ form{
     z-index: 5;
     padding: 8px 0px;
     border-radius: 5px 5px 10px 10px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.8);
     display: none;
 }
 
-#s_hint li{
+#s_hint li {
     width: 100%;
     height: 38px;
     line-height: 28px;
@@ -92,15 +96,15 @@ form{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: rgba(0,0,0,0.7);
+    color: rgba(0, 0, 0, 0.7);
     list-style: none;
 }
 
-#s_hint li.lighten{
-    background: rgba(50,120,250,0.8);
+#s_hint li.lighten {
+    background: rgba(50, 120, 250, 0.8);
 }
 
-#search{
+#search {
     width: 20%;
     height: 95%;
     margin: 1px 1px 1px 0;
@@ -114,15 +118,20 @@ form{
     font-family: Comic Sans MS, sans-serif;
 }
 
-#search:hover{
-    background: rgb(200,200,200);
+#search:hover {
+    background: rgb(200, 200, 200);
 }
+
 
 /*唱片部分*/
 
-@keyframes cdRotate{
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+@keyframes cdRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .cd {
@@ -140,7 +149,7 @@ form{
     position: absolute;
     z-index: 2;
     border-radius: 50%;
-    border: 10px solid rgba(255,255,255,0.5);
+    border: 10px solid rgba(255, 255, 255, 0.5);
     box-shadow: 5px 5px 15px #000;
     background-repeat: no-repeat;
     background-size: contain;
@@ -157,25 +166,26 @@ form{
     box-sizing: border-box;
 }
 
-.center_bg{
+.center_bg {
     width: 100%;
     height: 100%;
     position: absolute;
     border-radius: 50%;
-    border: 5px solid rgba(255,255,255,1);
+    border: 5px solid rgba(255, 255, 255, 1);
     z-index: 3;
     background: #000 url(/images/yinfu.gif) no-repeat center center;
     box-sizing: border-box;
     opacity: 0.5;
 }
 
-.center img{
+.center img {
     width: 80%;
     margin: 10%;
     position: absolute;
     opacity: 0.6;
     z-index: 4;
 }
+
 
 /*歌词部分*/
 
@@ -193,13 +203,25 @@ form{
     src: url(/font/MD.ttf);
 }
 
-.song a {
-    height: 20%;
+#stitle {
+    height: 50px;
+    line-height: 50px;
     font-family: MD;
-    font-size: 2.5em;
+    font-size: 2em;
     color: #81342a;
     text-shadow: 2px 2px 2px #000;
     text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+}
+
+#stitle+a {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    display: block;
+    top: 0px;
 }
 
 .lyric {
@@ -211,36 +233,204 @@ form{
     box-shadow: 1px 1px 2px 0px;
     border: 1px rgba(255, 255, 255, 0.5);
     border-radius: 10%;
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
-#lyric_scroller{
+#lyric_scroller_hinter {
+    width: 4px;
+    height: 84%;
+    position: absolute;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    opacity: 0;
+    top: 8%;
+}
+
+.lyric_scroller_area {
     width: 10px;
-    height: 100%;
-    max-height: 270px;
+    height: 84%;
+    position: absolute;
+    right: 5px;
+    top: 8%;
+}
+
+#lyric_scroller {
+    width: 10px;
+    max-height: 84%;
+    min-height: 20px;
     position: absolute;
     top: 8%;
+    cursor: pointer;
     right: 5px;
-    display: none;
-    background: rgba(255,255,255,0.3);
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
     border-radius: 5px;
 }
 
-#lyric_container{
+#container {
     width: 80%;
     position: relative;
     left: 10%;
     box-sizing: border-box;
 }
 
-.lyric p{
+.lrcLine, .tranLine {
     width: 100%;
-    height: 40px;
+    height: 30px;
     font-family: "微软雅黑";
     line-height: 30px;
+    font-size: 15px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+    color: #3c3c3c;
+}
+
+.tranLine{
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+.tranLine .lrc_cur{
+    font-size: 15px;
+}
+.lrcLine .lrc_cur{
+    font-size: 17px;
+}
+.lrc_cur {
+    color: #fff;
+}
+
+#cmt_container {
+    display: none;
+}
+
+#cmt_btn {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 40px;
+    left: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+.cmt_item {
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px 5px 20px;
+    box-sizing: border-box;
+    margin: 2px 0;
+}
+
+.cmt_total {
+    margin: 5px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.cmt_type {
+    margin: 5px;
+}
+
+.cmt_item img {
+    height: 40px;
+    position: relative;
+    border-radius: 10px;
+    top: 10px;
+}
+
+.cmt_item .comment {
+    display: block;
+    position: relative;
+    margin: 20px 20px 10px 20px;
+    word-break: break-word;
+    font-size: 15px;
+}
+
+@media screen and (max-width: 1024px){
+    .cmt_item .username {
+        max-width: 50%;
+    }
+}
+
+.cmt_item .username {
+    position: absolute;
+    margin-left: 16px;
+    font-weight: bold;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    top: 12px;
+    left: 60px;
+}
+
+.cmt_item .beCmt {
+    margin: 5px 20px 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    padding-left: 15px;
+    font-size: 14px;
+}
+
+.cmt_item .beCmtName {
+    margin: 0 8px 0 -8px;
+    font-weight: bold;
+}
+
+.cmt_item .cmtTime {
+    position: absolute;
+    top: 35px;
+    margin-left: 16px;
+    left: 60px;
+    font-size: 14px;
+}
+
+.cmt_item .cmtLike {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.cmt_item .cmtLike img {
+    height: 20px;
+    top: 4px;
+    margin-right: 3px;
+    position: relative;
+}
+
+#popup {
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    top: 100px;
+    left: 40%;
+    float: left;
+    border-radius: 10px 10px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+#popup img {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    left: 10px;
+    float: left;
+    opacity: 0.8;
+}
+
+#popup p {
+    display: inline-block;
+    height: 50px;
+    width: 200px;
+    padding: 15px;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }

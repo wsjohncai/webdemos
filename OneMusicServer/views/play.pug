@@ -7,6 +7,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style01.css')
     script(src='/javascripts/jquery-3.3.1.min.js')
     script(src='/javascripts/player.js')
+    script oriQuery={src: '#{query.src}',id: '#{query.id}'}
   body
     .bg
     .searchbox
@@ -23,9 +24,17 @@ html
                 .center_bg
                 img(src='/images/play.png' onclick='playMusic(this)')
         .song
-            a#stitle(title='右键另存为') title
+            #stitle title
+            a(title='右键另存为')
             .lyric 
-                #lyric_scroller
-                #lyric_container
-                    p lyric
+                #container
+                    #lyric_container
+                        p.lrcLine lyric
+                    #cmt_container
+                #lyric_scroller_hinter
+                #lyric_scroller.needHide
+                img#cmt_btn(src="/images/comments.png" title='查看评论')
             audio#player(loop)
+    #popup(hidden)
+        img#status_icon
+        p#pop_text
