@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE HTML>
@@ -64,7 +65,7 @@
                         <TD height=35 align="right"><span
                                 id="current_user">当前用户：<%=session.getAttribute("usercode")%></span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <A href="#" target=_top><FONT color=red>修改密码</FONT></A> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <A href="${pageContext.request.contextPath}/user_logout.action" target=_top><FONT color=red>安全退出</FONT></A>
+                            <A href="<s:url action="user_logout"/>" target=_top><FONT color=red>安全退出</FONT></A>
                         </TD>
                     </TR>
                     </TBODY>

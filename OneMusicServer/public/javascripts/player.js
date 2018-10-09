@@ -541,6 +541,7 @@ function startSyncLyric() {
         let tp = $($('.tranLine')[tpPoi]);
         if (rp !== pPoi) {
             if (rp !== -1) $($('.lrcLine')[rp]).removeClass('lrc_cur');
+            if (rtp != -1) $($('.tranLine')[rtp]).removeClass('lrc_cur');
             rp = pPoi;
             p.addClass('lrc_cur');
             if (!pauseLyric && pPoi != -1) {
@@ -552,7 +553,6 @@ function startSyncLyric() {
             }
         }
         if (rtp !== tpPoi) {
-            if (rtp != -1) $($('.tranLine')[rtp]).removeClass('lrc_cur');
             rtp = tpPoi;
             if(p.attr('data-time') === tp.attr('data-time'))tp.addClass('lrc_cur');
             tpPoi++;
