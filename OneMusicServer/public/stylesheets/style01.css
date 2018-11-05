@@ -129,6 +129,7 @@ form {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -140,6 +141,8 @@ form {
     position: absolute;
     top: 37%;
     left: 15%;
+    border-radius: 50%;
+    box-shadow: 5px 5px 15px #000;
     z-index: 1;
 }
 
@@ -150,7 +153,6 @@ form {
     z-index: 2;
     border-radius: 50%;
     border: 10px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 5px 5px 15px #000;
     background-repeat: no-repeat;
     background-size: contain;
     box-sizing: border-box;
@@ -276,7 +278,8 @@ form {
     box-sizing: border-box;
 }
 
-.lrcLine, .tranLine {
+.lrcLine,
+.tranLine {
     width: 100%;
     height: 30px;
     font-family: "微软雅黑";
@@ -289,16 +292,19 @@ form {
     color: #3c3c3c;
 }
 
-.tranLine{
+.tranLine {
     font-size: 13px;
     margin-bottom: 10px;
 }
-.tranLine .lrc_cur{
+
+.tranLine .lrc_cur {
     font-size: 15px;
 }
-.lrcLine .lrc_cur{
+
+.lrcLine .lrc_cur {
     font-size: 17px;
 }
+
 .lrc_cur {
     color: #fff;
 }
@@ -350,7 +356,7 @@ form {
     font-size: 15px;
 }
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
     .cmt_item .username {
         max-width: 50%;
     }
@@ -433,4 +439,21 @@ form {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.footer {
+    float: left;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+}
+
+.footer img {
+    width: 25px;
+    opacity: 0.5;
+}
+
+.footer p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.4);
 }

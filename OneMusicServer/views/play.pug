@@ -7,7 +7,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style01.css')
     script(src='/javascripts/jquery-3.3.1.min.js')
     script(src='/javascripts/player.js')
-    script oriQuery={src: '#{query.src}',id: '#{query.id}'}
+    script oriQuery={src: '#{query.src}',id: '#{query.songid}'}
   body
     .bg
     .searchbox
@@ -35,6 +35,11 @@ html
                 #lyric_scroller.needHide
                 img#cmt_btn(src="/images/comments.png" title='查看评论')
             audio#player(loop)
+    .footer
+        p 历史访问量:#{hisVisit}
+        img(src='/images/android.png' usemap='map1')
+        map(name='map1')
+            area(shape='rect' href='./player/OneMusic.apk' coords='0,0,25,25' alt='Download' title='下载安卓客户端')
     #popup(hidden)
         img#status_icon
         p#pop_text

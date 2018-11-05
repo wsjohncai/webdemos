@@ -91,8 +91,8 @@ var t1_3 = {
 };
 //无括号
 var t2 = {
-    songmid: '001MOpmO1AS2O5',
-    media_mid: '004Qa4ca4f5hac',
+    songmid: '002azErJ0UcDN6',
+    media_mid: '102MzMRy0kprlp',
     type: 2
 };
 //无括号
@@ -103,7 +103,7 @@ var t4 = {
     type: 4
 }
 
-test(t4, function(data) {
+test(t2, function(data) {
     // var d = JSON.parse(data);
     // let buf = new Buffer(d.lyric, 'base64');
     // d.lyric = buf.toString();
