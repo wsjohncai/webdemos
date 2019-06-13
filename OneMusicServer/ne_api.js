@@ -461,6 +461,6 @@ let op2 = {
     type: 2
 }
 
-test(op0,function(data){
+test(op2,function(data){
     console.log(data);
 })
