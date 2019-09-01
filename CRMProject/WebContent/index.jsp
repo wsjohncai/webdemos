@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML >
 <HTML>
 <HEAD>
 <TITLE>客户关系管理系统</TITLE> 

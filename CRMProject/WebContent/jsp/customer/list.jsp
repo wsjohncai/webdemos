@@ -7,12 +7,12 @@
 <head>
     <TITLE>客户列表</TITLE>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <LINK href="${pageContext.request.contextPath }/css/Style.css"
+    <LINK href="${requestScope.contextPath }/css/Style.css"
           type=text/css rel=stylesheet>
-    <LINK href="${pageContext.request.contextPath }/css/Manage.css"
+    <LINK href="${requestScope.contextPath }/css/Manage.css"
           type=text/css rel=stylesheet>
     <script type="text/javascript"
-            src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+            src="${requestScope.contextPath }/js/jquery-1.4.4.min.js"></script>
     <SCRIPT>
         var lvl = '${page.cons[2]}', src = '${page.cons[1]}';
         $(function () {

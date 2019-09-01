@@ -104,31 +104,31 @@ $(function() {
     //歌词背景更改
     let dir = ['right', 'left', 'bottom', 'top'];
     let tran = 4;
-    let conString = '';
+    let cs = [];
     let lyBgSch = setInterval(function() {
+        let r1 = dir[Math.floor(Math.random() * 4)];
+        let r2;
+        if (r1 === 'right' || r1 === 'left') r2 = dir[Math.floor(Math.random() * 2) + 2];
+        else r2 = dir[Math.floor(Math.random() * 2)];
+        let conString = r1 + (r1 === r2 ? ',' : ' ' + r2 + ',') + cs.toString();
+
         if (tran === 4) {
             tran = 3;
-            let r1 = dir[parseInt(Math.random() * 4)];
-            let r2;
-            if (r1 === 'right' || r1 === 'left') r2 = dir[parseInt(Math.random() * 2) + 2];
-            else r2 = dir[parseInt(Math.random() * 2)];
-            let cs = [];
             for (let j = 0; j < 5; j++) {
                 cs[j] = getRandomColor();
             }
-            conString = r1 + (r1 === r2 ? ',' : ' ' + r2 + ',') + cs.toString();
         } else if (tran === 3) {
-            conString = conString.replace(/0.2/g, '0.3');
+            conString = conString.replace(/0\.2/g, '0.3');
             tran = 2;
         } else if (tran === 2) {
-            conString = conString.replace(/0.3/g, '0.4');
+            conString = conString.replace(/0\.3/g, '0.4');
             tran = 1;
         } else if (tran === 1) {
             tran = 5;
-            conString = conString.replace(/0.4/g, '0.3');
+            conString = conString.replace(/0\.4/g, '0.3');
         } else if (tran === 5) {
             tran = 4;
-            conString = conString.replace(/0.3/g, '0.2');
+            conString = conString.replace(/0\.3/g, '0.2');
         }
         let lr = $('.lyric');
         lr.css('background', '-webkit-linear-gradient(' + conString + ')');
@@ -361,14 +361,11 @@ function fling(spd, type) {
 
 function getRandomColor() {
     let c = 'rgba(';
-    let t = parseInt(Math.random() * 256);
-    t = t < 128 ? t + 128 : t;
+    let t = Math.floor(Math.random() * 128 + 128);
     c += t + ',';
-    t = parseInt(Math.random() * 256);
-    t = t < 128 ? t + 128 : t;
+    t = Math.floor(Math.random() * 128 + 128);
     c += t + ',';
-    t = parseInt(Math.random() * 256);
-    t = t < 128 ? t + 128 : t;
+    t = Math.floor(Math.random() * 128 + 128);
     c += t + ',';
     c += '0.2)';
     return c;
@@ -390,7 +387,7 @@ function getHint() {
         if (queryTime > lastShowTime) {
             lastShowTime = queryTime;
         } else return;
-        data = d.ne.data;
+        let data = d.ne.data;
         if (data.code === 200 && data.songs.length > 0) {
             $hint.empty();
             for (let i = 0; i < data.songs.length; i++) {
@@ -612,7 +609,7 @@ function stopPlaying() {
 }
 
 function getUrl(id) {
-    $.get('/music/url?src=ne&songbr=999000&songid=' + id, function(d) {
+    $.get('/music/url?src=ne&songbr=320000&songid=' + id, function(d) {
         let data = d.data;
         if (data.code === 200) {
             let url = data.url;
@@ -644,7 +641,7 @@ function getCmtItem(data) {
         let gap = now.getTime() / 1000 - cmttime / 1000;
         if (gap < 60) return "刚刚";
         gap = gap / 60;
-        if (gap < 60) return parseInt(gap) + "分钟前";
+        if (gap < 60) return Math.ceil(gap) + "分钟前";
         let ny, nm, nd;
         ny = now.getUTCFullYear();
         nm = now.getMonth() + 1;
@@ -664,7 +661,7 @@ function getCmtItem(data) {
         let fd = cmtt.getDate().toString();
         fd = fd.length === 1 ? '0' + fd : fd;
         let rs = fm + '月' + fd + '日 ' + rs0;
-        if (now.getYear() === cmtt.getYear())
+        if (now.getFullYear() === cmtt.getFullYear())
             return rs;
         return cmtt.getUTCFullYear() + '年' + rs;
     }

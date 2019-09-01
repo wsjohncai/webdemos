@@ -12,7 +12,7 @@
 			<result name="login" type="redirect">/login.jsp</result>
 		</global-results>
 
-		<action name="dict_*" class="dictAction" method="{1}"></action>
+		<action name="dict_*" class="dictAction" method="{1}"/>
 
 		<!-- 配置客户的Action，如果Action由Spring框架来管理，class标签上只需要编写ID值就OK -->
 		<action name="customer_*" class="customerAction" method="{1}">
